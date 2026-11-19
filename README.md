@@ -41,6 +41,7 @@ horizon_erp/
 cd ~/frappe-bench
 bench get-app <repo-url> horizon_erp          # or copy the folder into apps/ and: ./env/bin/pip install -e apps/horizon_erp
 bench --site <site> install-app horizon_erp   # needs erpnext, hrms, india_compliance
+bench --site <site> migrate                    # registers the 11 scheduled jobs; install-app alone does not
 bench restart                                  # or stop / start `bench start` so web, worker and scheduler load the app
 ```
 
@@ -78,7 +79,7 @@ The seed blocks outbound HTTP made by other apps' hooks in its own process and s
 bench --site <site> execute horizon_erp.tests.smoke.run
 ```
 
-Checks (all PASS on FSM.local, 19 Nov 2026): typed prices refused, discount reason required, > 15 % discount needs approval, blacklist override and tier 3, PO tiers by amount, invoice before delivery refused, capacity conflict blocks the WO, audit hold blocks completion, GSTIN check digit, stock PI without PO refused, bank period lock, GSTIN auto-fix rules, CGST/SGST vs IGST by registration, credit limit.
+Checks (all PASS on FSM.local, 19 Nov 2026, against the restarted bench on port 8000): typed prices refused, discount reason required, > 15 % discount needs approval, blacklist override and tier 3, PO tiers by amount, invoice before delivery refused, capacity conflict blocks the WO, audit hold blocks completion, GSTIN check digit, stock PI without PO refused, bank period lock, GSTIN auto-fix rules, CGST/SGST vs IGST by registration, credit limit.
 
 API test: see the Inventory API document (04_Inventory_API).
 
@@ -103,3 +104,5 @@ API test: see the Inventory API document (04_Inventory_API).
 - Scheduled jobs need the scheduler and a worker (`bench start` or supervisor). Without an outgoing Email Account, notifications appear as bell notifications only.
 - Workflows on Quotation and Purchase Order are site-wide; other companies get a plain "Submit" transition.
 - Every rule checks `company == "Horizon Manufacturing Ltd"`.
+- Labour rates live in Activity Cost, not Activity Type: agrica_fsm replaces Activity Type with a DocType that has no rate fields.
+- `after_migrate` grants each HML role on an HML report read + report rights on the report's source doctype, because this site uses customised permissions.

@@ -16,7 +16,7 @@ from horizon_erp.horizon_erp.report.hml_budget_variance.hml_budget_variance impo
 
 def execute(filters=None):
 	filters = frappe._dict(filters or {})
-	_cols, rows, *_ = variance(filters)
+	_cols, rows, *_rest = variance(filters)
 	total = sum(abs(r["ytd_actual"] - r["ytd_budget"]) for r in rows) or 1
 	upto = getdate(filters.upto or nowdate())
 	data = []

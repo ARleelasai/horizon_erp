@@ -54,8 +54,8 @@ def execute(filters=None):
 			}
 		)
 	cols = [
-		{"label": _("Cost Center"), "fieldname": "cost_center", "fieldtype": "Link", "options": "Cost Center", "width": 160},
-		{"label": _("Account"), "fieldname": "account", "fieldtype": "Link", "options": "Account", "width": 200},
+		{"label": _("Cost Center"), "fieldname": "cost_center", "fieldtype": "Data", "width": 160},
+		{"label": _("Account"), "fieldname": "account", "fieldtype": "Data", "width": 200},
 		{"label": _("Annual Budget"), "fieldname": "annual", "fieldtype": "Currency", "width": 120},
 		{"label": _("Month Budget"), "fieldname": "month_budget", "fieldtype": "Currency", "width": 115},
 		{"label": _("Month Actual"), "fieldname": "month_actual", "fieldtype": "Currency", "width": 115},

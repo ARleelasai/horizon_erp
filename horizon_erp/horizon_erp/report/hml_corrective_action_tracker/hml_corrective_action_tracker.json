@@ -9,7 +9,7 @@
  "idx": 0,
  "is_standard": "Yes",
  "letterhead": null,
- "modified": "2026-11-19 12:00:00.000000",
+ "modified": "2026-11-19 16:00:00.000000",
  "modified_by": "Administrator",
  "module": "Horizon ERP",
  "name": "HML Corrective Action Tracker",
@@ -36,6 +36,9 @@
   },
   {
    "role": "HML Department Head"
+  },
+  {
+   "role": "HML Procurement Manager"
   }
  ],
  "timeout": 0

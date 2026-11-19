@@ -89,7 +89,7 @@ def get_columns():
 	return [
 		{"label": _("Sales Order"), "fieldname": "sales_order", "fieldtype": "Link", "options": "Sales Order", "width": 140},
 		{"label": _("Customer"), "fieldname": "customer_name", "fieldtype": "Data", "width": 180},
-		{"label": _("Location"), "fieldname": "branch", "fieldtype": "Link", "options": "Branch", "width": 95},
+		{"label": _("Location"), "fieldname": "branch", "fieldtype": "Data", "width": 95},
 		{"label": _("Order Date"), "fieldname": "transaction_date", "fieldtype": "Date", "width": 95},
 		{"label": _("Due Date"), "fieldname": "delivery_date", "fieldtype": "Date", "width": 95},
 		{"label": _("Item"), "fieldname": "item_code", "fieldtype": "Link", "options": "Item", "width": 130},

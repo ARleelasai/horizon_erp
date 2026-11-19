@@ -834,6 +834,61 @@ def _task(subject):
 	return frappe.db.get_value("Task", {"subject": subject, "project": ("like", "%")})
 
 
+def step_activity_costs():
+	"""Per-employee costing / billing rates for the project activities.
+
+	agrica_fsm replaces ERPNext's Activity Type with its own DocType that has no
+	rate fields, so rates set on Activity Type are lost. ERPNext's timesheet reads
+	Activity Cost (employee + activity) first, so the rates live there. Timesheets
+	already submitted with zero cost are repriced, then task and project totals
+	are recalculated from them.
+	"""
+	from horizon_erp.overrides.projects import update_project_costing
+
+	rates = {name: (cost, bill) for name, cost, bill in ACTIVITIES}
+	for _subject, activity, *_rest, assignees, _status in TASKS:
+		for key in assignees:
+			e = emp(key)
+			if not frappe.db.exists("Activity Cost", {"employee": e, "activity_type": activity}):
+				cost, bill = rates[activity]
+				frappe.get_doc(
+					{"doctype": "Activity Cost", "employee": e, "activity_type": activity, "costing_rate": cost, "billing_rate": bill}
+				).insert(ignore_permissions=True)
+				log(f"+ Activity Cost {key} / {activity}: cost Rs {cost}/h, bill Rs {bill}/h")
+
+	repriced = frappe.get_all(
+		"Timesheet",
+		filters={"company": COMPANY, "docstatus": 1, "total_costing_amount": 0, "total_hours": (">", 0)},
+		pluck="name",
+	)
+	tasks, projects = set(), set()
+	for name in repriced:
+		ts = frappe.get_doc("Timesheet", name)
+		ts.update_cost()
+		for d in ts.time_logs:
+			d.base_costing_rate, d.base_costing_amount = d.costing_rate, d.costing_amount
+			d.base_billing_rate, d.base_billing_amount = d.billing_rate, d.billing_amount
+			d.db_update()
+			tasks.add(d.task)
+			projects.add(d.project)
+		ts.calculate_total_amounts()
+		ts.db_update()
+		log(f"~ Timesheet {name} repriced: cost Rs {ts.total_costing_amount:,.0f}, billable Rs {ts.total_billable_amount:,.0f}")
+	for t in filter(None, tasks):
+		task = frappe.get_doc("Task", t)
+		status = task.status
+		task.update_time_and_costing()
+		task.status = status  # keep the recorded status; update_time_and_costing flips Open to Working
+		task.db_update()
+	for p in filter(None, projects):
+		project = frappe.get_doc("Project", p)
+		project.update_costing()
+		project.db_update()  # project_costs() reads the stored totals
+		update_project_costing(project)
+		project.db_update()
+		log(f"~ Project {p}: labour Rs {project.hml_labour_cost:,.0f}, total cost Rs {project.hml_total_cost:,.0f}, margin {project.hml_margin_pct:.1f} %")
+
+
 def step_timesheets():
 	project = frappe.db.get_value("Project", {"project_name": "Custom Hydraulic Test Rig - Northern Engineering"})
 	if frappe.db.exists("Timesheet", {"parent_project": project}) or frappe.db.exists("Timesheet Detail", {"project": project}):
@@ -1172,6 +1227,7 @@ STEPS = [
 	("salary_assignments", step_salary_assignments),
 	("payroll_run", step_payroll_run),
 	("project", step_project),
+	("activity_costs", step_activity_costs),
 	("timesheets", step_timesheets),
 	("asset_masters", step_asset_masters),
 	("existing_assets", step_existing_assets),

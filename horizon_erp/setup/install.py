@@ -20,6 +20,7 @@ def after_migrate():
 	from horizon_erp.setup import workspaces
 
 	workspaces.make_all()
+	make_report_permissions()
 
 
 def make_roles():
@@ -28,6 +29,37 @@ def make_roles():
 			frappe.get_doc({"doctype": "Role", "role_name": role, "desk_access": 1}).insert(
 				ignore_permissions=True
 			)
+
+
+def make_report_permissions():
+	"""Give every HML role listed on an HML report read + report rights on its source doctype.
+
+	Frappe refuses a script report unless the user may "report" on its ref_doctype. This
+	site keeps customised permissions (Custom DocPerm) on most doctypes, so a role on the
+	report's list is not enough. Only HML roles get new rows; other roles are untouched.
+	"""
+	from frappe.permissions import add_permission, update_permission_property
+
+	reports = frappe.get_all("Report", filters={"module": "Horizon ERP"}, fields=["name", "ref_doctype"])
+	for report in reports:
+		if not report.ref_doctype:
+			continue
+		roles = frappe.get_all(
+			"Has Role", filters={"parenttype": "Report", "parent": report.name, "role": ["in", HML_ROLES]}, pluck="role"
+		)
+		for role in roles:
+			row = frappe.db.get_value(
+				"Custom DocPerm",
+				{"parent": report.ref_doctype, "role": role, "permlevel": 0, "if_owner": 0},
+				["read", "report"],
+				as_dict=True,
+			)
+			if row and row.read and row.report:
+				continue
+			if not row:
+				add_permission(report.ref_doctype, role, 0)
+			update_permission_property(report.ref_doctype, role, 0, "read", 1, validate=False)
+			update_permission_property(report.ref_doctype, role, 0, "report", 1, validate=False)
 
 
 def make_custom_fields():

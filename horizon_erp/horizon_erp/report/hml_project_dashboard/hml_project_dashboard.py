@@ -62,7 +62,7 @@ def execute(filters=None):
 		{"label": _("Margin budgeted %"), "value": p.hml_budget_margin_pct, "datatype": "Percent", "indicator": "Blue"},
 	]
 	columns = [
-		{"label": _("Task"), "fieldname": "task", "fieldtype": "Link", "options": "Task", "width": 130},
+		{"label": _("Task"), "fieldname": "task", "fieldtype": "Data", "width": 130},
 		{"label": _("Subject"), "fieldname": "subject", "fieldtype": "Data", "width": 220},
 		{"label": _("Status"), "fieldname": "status", "fieldtype": "Data", "width": 90},
 		{"label": _("Budget h"), "fieldname": "budget_hours", "fieldtype": "Float", "width": 85},
