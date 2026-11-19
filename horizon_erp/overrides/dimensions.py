@@ -63,8 +63,25 @@ def header_branch(doc):
 	return BRANCH_MUMBAI
 
 
+# HRMS uses `branch` on these as an employee filter, not only as a dimension:
+# a defaulted HQ Mumbai would silently drop Delhi staff from the payroll run.
+SKIP_DOCTYPES = {"Payroll Entry", "Employee", "Salary Structure Assignment"}
+
+
+def _dimension_doctypes():
+	cache = getattr(frappe.local, "hml_dimension_doctypes", None)
+	if cache is None:
+		from erpnext.accounts.doctype.accounting_dimension.accounting_dimension import get_doctypes_with_dimensions
+
+		cache = set(get_doctypes_with_dimensions())
+		frappe.local.hml_dimension_doctypes = cache
+	return cache
+
+
 def set_branch(doc, method=None):
 	if doc.get("company") != COMPANY or doc.meta.istable:
+		return
+	if doc.doctype in SKIP_DOCTYPES or doc.doctype not in _dimension_doctypes():
 		return
 	if frappe.flags.in_install or frappe.flags.in_migrate:
 		return

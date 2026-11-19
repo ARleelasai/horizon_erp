@@ -340,6 +340,66 @@ NON_CONFORMANCE_FIELDS = [
 ]
 
 
+TASK_FIELDS = [
+	{"fieldname": "hml_billing_section", "label": "Milestone Billing", "fieldtype": "Section Break", "insert_after": "is_milestone", "depends_on": "is_milestone"},
+	{"fieldname": "hml_billing_pct", "label": "Billing % of Contract", "fieldtype": "Percent", "insert_after": "hml_billing_section",
+		"description": "When this milestone task is Completed, a Sales Invoice for this share of the Sales Order is raised automatically."},
+	{"fieldname": "hml_billing_amount", "label": "Billing Amount", "fieldtype": "Currency", "read_only": 1, "insert_after": "hml_billing_pct"},
+	{"fieldname": "hml_milestone_invoice", "label": "Milestone Invoice", "fieldtype": "Link", "options": "Sales Invoice", "read_only": 1, "insert_after": "hml_billing_amount", "no_copy": 1},
+	{"fieldname": "hml_budgeted_cost", "label": "Budgeted Cost", "fieldtype": "Currency", "insert_after": "hml_milestone_invoice"},
+]
+
+PROJECT_FIELDS = [
+	{"fieldname": "hml_costing_section", "label": "Horizon Project Costing", "fieldtype": "Section Break", "insert_after": "per_gross_margin"},
+	{"fieldname": "hml_contract_value", "label": "Contract Value (Sales Order)", "fieldtype": "Currency", "read_only": 1, "insert_after": "hml_costing_section"},
+	{"fieldname": "hml_overhead_pct", "label": "Overhead % of Direct Cost", "fieldtype": "Percent", "default": "15", "insert_after": "hml_contract_value"},
+	{"fieldname": "hml_labour_cost", "label": "Labour (timesheets)", "fieldtype": "Currency", "read_only": 1, "insert_after": "hml_overhead_pct"},
+	{"fieldname": "hml_material_cost", "label": "Material (issues + purchases)", "fieldtype": "Currency", "read_only": 1, "insert_after": "hml_labour_cost"},
+	{"fieldname": "hml_col_cost", "fieldtype": "Column Break", "insert_after": "hml_material_cost"},
+	{"fieldname": "hml_overhead_cost", "label": "Overhead (allocated)", "fieldtype": "Currency", "read_only": 1, "insert_after": "hml_col_cost"},
+	{"fieldname": "hml_total_cost", "label": "Total Cost", "fieldtype": "Currency", "read_only": 1, "insert_after": "hml_overhead_cost"},
+	{"fieldname": "hml_billed_amount", "label": "Billed (milestones)", "fieldtype": "Currency", "read_only": 1, "insert_after": "hml_total_cost"},
+	{"fieldname": "hml_margin_pct", "label": "Margin % (on cost to date vs earned)", "fieldtype": "Percent", "read_only": 1, "insert_after": "hml_billed_amount"},
+	{"fieldname": "hml_budget_margin_pct", "label": "Budgeted Margin %", "fieldtype": "Percent", "read_only": 1, "insert_after": "hml_margin_pct"},
+]
+
+TIMESHEET_FIELDS = [
+	{"fieldname": "hml_has_overtime", "label": "Overtime (> 8 h on a day)", "fieldtype": "Check", "read_only": 1, "insert_after": "total_hours", "in_standard_filter": 1},
+	{"fieldname": "hml_overtime_hours", "label": "Overtime Hours", "fieldtype": "Float", "read_only": 1, "insert_after": "hml_has_overtime",
+		"description": "Hours above 8 per employee per day, across all of that employee's timesheets. Paid via payroll (Overtime component)."},
+]
+
+EMPLOYEE_FIELDS = [
+	{"fieldname": "hml_employee_category", "label": "Pay Category", "fieldtype": "Select", "options": "\nSalaried Staff\nWage Earner\nContractual",
+		"insert_after": "branch", "in_standard_filter": 1, "description": "Drives the salary structure: monthly CTC, hourly wages, or fixed contract fee."},
+	{"fieldname": "hml_hourly_rate", "label": "Hourly Wage Rate", "fieldtype": "Currency", "insert_after": "hml_employee_category", "depends_on": "eval:doc.hml_employee_category=='Wage Earner'"},
+]
+
+SALARY_SLIP_FIELDS = [
+	{"fieldname": "hml_hours_section", "label": "Hours (wage earners)", "fieldtype": "Section Break", "insert_after": "payment_days"},
+	{"fieldname": "hml_employee_category", "label": "Pay Category", "fieldtype": "Data", "read_only": 1, "insert_after": "hml_hours_section"},
+	{"fieldname": "hml_hours_worked", "label": "Hours Worked (attendance)", "fieldtype": "Float", "read_only": 1, "insert_after": "hml_employee_category"},
+	{"fieldname": "hml_overtime_hours", "label": "Overtime Hours", "fieldtype": "Float", "read_only": 1, "insert_after": "hml_hours_worked",
+		"description": "Attendance hours above 8 per day + timesheet overtime not already covered by attendance."},
+]
+
+SALES_INVOICE_FIELDS = [
+	{"fieldname": "hml_milestone_section", "label": "Project Milestone", "fieldtype": "Section Break", "insert_after": "project", "depends_on": "hml_project_milestone"},
+	{"fieldname": "hml_project_milestone", "label": "Milestone Task", "fieldtype": "Link", "options": "Task", "read_only": 1, "insert_after": "hml_milestone_section"},
+	{"fieldname": "hml_material_cost", "label": "Material Cost to Date", "fieldtype": "Currency", "read_only": 1, "insert_after": "hml_project_milestone"},
+	{"fieldname": "hml_labour_cost", "label": "Labour Cost to Date", "fieldtype": "Currency", "read_only": 1, "insert_after": "hml_material_cost"},
+	{"fieldname": "hml_overhead_cost", "label": "Overhead to Date", "fieldtype": "Currency", "read_only": 1, "insert_after": "hml_labour_cost"},
+]
+
+ASSET_FIELDS = [
+	{"fieldname": "hml_asset_section", "label": "Horizon", "fieldtype": "Section Break", "insert_after": "cost_center"},
+	{"fieldname": "hml_production_line", "label": "Production Line", "fieldtype": "Link", "options": "Workstation", "insert_after": "hml_asset_section"},
+	{"fieldname": "hml_replacement_flag", "label": "Replacement Candidate", "fieldtype": "Check", "read_only": 1, "insert_after": "hml_production_line", "allow_on_submit": 1,
+		"description": "Set by the Asset Register when maintenance cost in the last 12 months exceeds 15 % of book value."},
+	{"fieldname": "hml_retirement_reason", "label": "Retirement Reason", "fieldtype": "Small Text", "insert_after": "hml_replacement_flag", "allow_on_submit": 1},
+]
+
+
 def get_custom_fields():
 	return {
 		"Item": ITEM_FIELDS,
@@ -361,4 +421,11 @@ def get_custom_fields():
 		"Work Order": WORK_ORDER_FIELDS,
 		"Job Card": JOB_CARD_FIELDS,
 		"Non Conformance": NON_CONFORMANCE_FIELDS,
+		"Task": TASK_FIELDS,
+		"Project": PROJECT_FIELDS,
+		"Timesheet": TIMESHEET_FIELDS,
+		"Employee": EMPLOYEE_FIELDS,
+		"Salary Slip": SALARY_SLIP_FIELDS,
+		"Sales Invoice": SALES_INVOICE_FIELDS,
+		"Asset": ASSET_FIELDS,
 	}

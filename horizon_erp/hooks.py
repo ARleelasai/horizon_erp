@@ -80,6 +80,15 @@ doc_events = {
 	"Work Order": {"validate": "horizon_erp.manufacturing.capacity.validate_work_order"},
 	"Job Card": {"before_submit": "horizon_erp.manufacturing.quality.before_submit_job_card"},
 	"Stock Entry": {"before_submit": "horizon_erp.manufacturing.audit.validate_manufacture_entry"},
+	"Project": {"validate": "horizon_erp.overrides.projects.update_project_costing"},
+	"Task": {
+		"validate": "horizon_erp.overrides.projects.validate_task",
+		"on_update": "horizon_erp.overrides.projects.on_update_task",
+	},
+	"Timesheet": {"validate": "horizon_erp.overrides.projects.validate_timesheet"},
+	"Employee": {"validate": "horizon_erp.overrides.hr.validate_employee"},
+	"Leave Application": {"validate": "horizon_erp.overrides.hr.validate_leave_application"},
+	"Salary Slip": {"before_validate": "horizon_erp.overrides.hr.before_validate_salary_slip"},
 	"Stock Reconciliation": {
 		"before_validate": "horizon_erp.tasks.inventory.before_stock_reco_validate",
 		"on_submit": "horizon_erp.tasks.inventory.on_stock_reco_submit",
@@ -98,6 +107,7 @@ scheduler_events = {
 	"daily": [
 		"horizon_erp.tasks.reorder.recalculate_reorder_levels",
 		"horizon_erp.horizon_erp.doctype.corrective_action.corrective_action.mark_overdue",
+		"horizon_erp.overrides.projects.refresh_all_projects",
 	],
 	"weekly": [
 		"horizon_erp.tasks.inventory.create_cycle_count_drafts",
