@@ -335,7 +335,7 @@ def _deliver(so_key, posting_date, qty_map=None, parent_warehouse=None, notes=No
 	dn.reload()
 	dn.set_posting_time = 1
 	dn.posting_date = posting_date
-	dn.posting_time = "16:00:00"
+	dn.posting_time = "16:00:00" if posting_date != frappe.utils.nowdate() else frappe.utils.nowtime()
 	dn.hml_deviation_notes = notes
 	dn.transporter_name = None
 	dn.lr_no = f"LR-{posting_date.replace('-', '')}-{so_key}"

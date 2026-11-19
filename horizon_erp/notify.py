@@ -1,8 +1,8 @@
 """One way to tell people something: desk bell notification + email.
 
 The bell notification (Notification Log) always works. Email is queued only
-when the site has a default outgoing Email Account; without one Frappe raises
-OutgoingEmailError, which is caught and logged so a missing mail server never
+when the site has a working default outgoing Email Account; any failure to
+queue is caught and logged so a missing mail server never
 breaks a business transaction or a scheduler run.
 """
 
@@ -38,5 +38,7 @@ def notify(recipients, subject, message, reference_doctype=None, reference_name=
 			reference_name=reference_name,
 			attachments=attachments,
 		)
-	except frappe.OutgoingEmailError:
+	except Exception:
+		# no / broken outgoing Email Account: OutgoingEmailError, or an
+		# AttributeError from the placeholder account's empty sender address
 		frappe.logger("horizon").warning(f"email not queued (no outgoing account): {subject} -> {recipients}: {strip_html(message)[:200]}")

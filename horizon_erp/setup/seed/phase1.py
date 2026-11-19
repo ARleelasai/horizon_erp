@@ -723,8 +723,9 @@ def step_items():
 		_ensure_hsn(hsn)
 		if not frappe.db.exists("Item", code):
 			default_wh = WH_FG if kind in ("fg", "buysell") and group != IG_COMPONENTS else WH_RM
+			# sub-assemblies are stocked in stores (RM), where final assembly draws them
 			if kind == "sa":
-				default_wh = WH_WIP
+				default_wh = WH_RM
 			defaults = {
 				"company": COMPANY,
 				"default_warehouse": default_wh,

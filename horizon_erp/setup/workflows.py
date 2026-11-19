@@ -169,6 +169,28 @@ def make_purchase_order_workflow():
 	)
 
 
+def make_production_audit_workflow():
+	ensure_states([("Draft", "Inverse"), ("Submitted", "Primary"), ("Reviewed", "Warning"), ("Action Closed", "Success")])
+	ensure_actions(["Submit", "Review", "Close Action"])
+	upsert_workflow(
+		"HML Production Audit",
+		"Production Audit",
+		states=[
+			("Draft", 0, "HML Quality Inspector", None, None),
+			("Submitted", 1, "Quality Manager", None, None),
+			("Reviewed", 1, "HML Operations Head", None, None),
+			("Action Closed", 1, "HML Operations Head", None, None),
+		],
+		transitions=[
+			("Draft", "Submit", "Submitted", "HML Quality Inspector", None, 1),
+			("Submitted", "Review", "Reviewed", "Quality Manager", None, 1),
+			("Submitted", "Review", "Reviewed", "HML Operations Head", None, 1),
+			("Reviewed", "Close Action", "Action Closed", "HML Operations Head", None, 1),
+		],
+		send_email_alert=0,
+	)
+
+
 def make_notifications():
 	upsert_notification(
 		"HML Delivery Dispatched",
@@ -221,4 +243,5 @@ def upsert_notification(name, values):
 def make_all():
 	make_quotation_workflow()
 	make_purchase_order_workflow()
+	make_production_audit_workflow()
 	make_notifications()

@@ -260,6 +260,86 @@ MATERIAL_REQUEST_FIELDS = [
 ]
 
 
+WORKSTATION_FIELDS = [
+	{"fieldname": "hml_capacity_section", "label": "Horizon Capacity", "fieldtype": "Section Break", "insert_after": "holiday_list"},
+	{"fieldname": "hml_setup_time_mins", "label": "Setup / Changeover Time (min)", "fieldtype": "Int", "insert_after": "hml_capacity_section",
+		"description": "Added once per Work Order (product changeover)."},
+	{"fieldname": "hml_downtime_pct", "label": "Planned Downtime %", "fieldtype": "Percent", "insert_after": "hml_setup_time_mins",
+		"description": "Maintenance, breakdowns and breaks; reduces usable hours."},
+	{"fieldname": "hml_effective_hours_per_day", "label": "Usable Hours per Day", "fieldtype": "Float", "read_only": 1, "insert_after": "hml_downtime_pct"},
+]
+
+QI_TEMPLATE_FIELDS = [
+	{"fieldname": "hml_photo_required", "label": "Critical Check - Photo / Video Evidence Required", "fieldtype": "Check", "insert_after": "quality_inspection_template_name"},
+]
+
+BOM_FIELDS = [
+	{"fieldname": "hml_revision_section", "label": "Revision Control", "fieldtype": "Section Break", "insert_after": "description"},
+	{"fieldname": "hml_revision_no", "label": "Revision No", "fieldtype": "Int", "read_only": 1, "insert_after": "hml_revision_section"},
+	{"fieldname": "hml_revision_reason", "label": "Revision Trigger", "fieldtype": "Select", "insert_after": "hml_revision_no",
+		"options": "\nInitial Release\nDesign Change\nCost Update\nSupplier / Material Change\nQuality Improvement\nProcess Change",
+		"description": "Mandatory. Why this BOM version exists (audit requirement)."},
+	{"fieldname": "hml_col_revision", "fieldtype": "Column Break", "insert_after": "hml_revision_reason"},
+	{"fieldname": "hml_ecn_no", "label": "Engineering Change Note No", "fieldtype": "Data", "insert_after": "hml_col_revision"},
+	{"fieldname": "hml_revision_notes", "label": "What Changed", "fieldtype": "Small Text", "insert_after": "hml_ecn_no"},
+	{"fieldname": "hml_supersedes", "label": "Supersedes BOM", "fieldtype": "Link", "options": "BOM", "read_only": 1, "insert_after": "hml_revision_notes"},
+]
+
+BOM_OPERATION_FIELDS = [
+	{"fieldname": "hml_inspection_template", "label": "Inspection Checkpoint", "fieldtype": "Link", "options": "Quality Inspection Template",
+		"fetch_from": "operation.quality_inspection_template", "read_only": 1, "insert_after": "workstation", "in_list_view": 1, "columns": 2},
+]
+
+WORK_ORDER_FIELDS = [
+	{"fieldname": "hml_capacity_tab", "label": "Capacity and Quality", "fieldtype": "Tab Break", "insert_after": "description"},
+	{"fieldname": "hml_production_line", "label": "Production Line", "fieldtype": "Link", "options": "Workstation", "insert_after": "hml_capacity_tab",
+		"description": "Auto-assigned to the eligible line with most free hours before the deadline; can be overridden."},
+	{"fieldname": "hml_deadline", "label": "Must Finish By", "fieldtype": "Date", "insert_after": "hml_production_line",
+		"description": "Sales Order delivery date minus 2 dispatch days, else planned end date."},
+	{"fieldname": "hml_required_hours", "label": "Required Line Hours", "fieldtype": "Float", "read_only": 1, "insert_after": "hml_deadline"},
+	{"fieldname": "hml_line_free_hours", "label": "Free Line Hours Before Deadline", "fieldtype": "Float", "read_only": 1, "insert_after": "hml_required_hours"},
+	{"fieldname": "hml_capacity_status", "label": "Capacity Check", "fieldtype": "Select", "options": "\nOK\nOver Capacity - Decision Recorded", "read_only": 1,
+		"insert_after": "hml_line_free_hours", "in_standard_filter": 1},
+	{"fieldname": "hml_col_capacity", "fieldtype": "Column Break", "insert_after": "hml_capacity_status"},
+	{"fieldname": "hml_capacity_decision", "label": "Capacity Decision", "fieldtype": "Select", "insert_after": "hml_col_capacity",
+		"options": "\nShip Partial\nDelay Delivery (customer agreed)\nOvertime / Extra Shift\nMove to Other Line\nNegotiate Timeline",
+		"description": "Required when the line cannot finish before the deadline. Forces a business decision instead of hiding the conflict."},
+	{"fieldname": "hml_capacity_decision_note", "label": "Decision Note", "fieldtype": "Small Text", "insert_after": "hml_capacity_decision"},
+	{"fieldname": "hml_decided_by", "label": "Decided By", "fieldtype": "Link", "options": "User", "read_only": 1, "insert_after": "hml_capacity_decision_note"},
+	{"fieldname": "hml_quality_section", "label": "Quality", "fieldtype": "Section Break", "insert_after": "hml_decided_by"},
+	{"fieldname": "hml_has_rework", "label": "Had Rework", "fieldtype": "Check", "read_only": 1, "insert_after": "hml_quality_section", "allow_on_submit": 1, "no_copy": 1},
+	{"fieldname": "hml_rework_qty", "label": "Units Reworked", "fieldtype": "Float", "read_only": 1, "insert_after": "hml_has_rework", "allow_on_submit": 1, "no_copy": 1},
+	{"fieldname": "hml_audit_hold", "label": "On Hold - Production Audit Below 70", "fieldtype": "Check", "read_only": 1, "insert_after": "hml_rework_qty", "allow_on_submit": 1, "no_copy": 1},
+]
+
+JOB_CARD_FIELDS = [
+	{"fieldname": "hml_production_line", "label": "Production Line", "fieldtype": "Link", "options": "Workstation",
+		"fetch_from": "work_order.hml_production_line", "read_only": 1, "insert_after": "workstation"},
+]
+
+NON_CONFORMANCE_FIELDS = [
+	{"fieldname": "hml_section", "label": "Defect Details", "fieldtype": "Section Break", "insert_after": "status"},
+	{"fieldname": "hml_company", "label": "Company", "fieldtype": "Link", "options": "Company", "insert_after": "hml_section", "default": "Horizon Manufacturing Ltd"},
+	{"fieldname": "hml_source", "label": "Detected At", "fieldtype": "Select", "options": "\nIncoming Inspection\nIn-Process Inspection\nFinal Testing\nProduction Audit\nCustomer Complaint",
+		"insert_after": "hml_company", "in_list_view": 1, "in_standard_filter": 1},
+	{"fieldname": "hml_item_code", "label": "Item", "fieldtype": "Link", "options": "Item", "insert_after": "hml_source", "in_standard_filter": 1},
+	{"fieldname": "hml_defect_reason", "label": "Defect Reason", "fieldtype": "Link", "options": "Quality Rejection Reason", "insert_after": "hml_item_code", "in_standard_filter": 1},
+	{"fieldname": "hml_defect_qty", "label": "Defective Qty", "fieldtype": "Float", "insert_after": "hml_defect_reason"},
+	{"fieldname": "hml_cost_impact", "label": "Cost Impact (rework / scrap)", "fieldtype": "Currency", "insert_after": "hml_defect_qty"},
+	{"fieldname": "hml_col_links", "fieldtype": "Column Break", "insert_after": "hml_cost_impact"},
+	{"fieldname": "hml_work_order", "label": "Work Order", "fieldtype": "Link", "options": "Work Order", "insert_after": "hml_col_links"},
+	{"fieldname": "hml_job_card", "label": "Job Card", "fieldtype": "Link", "options": "Job Card", "insert_after": "hml_work_order"},
+	{"fieldname": "hml_quality_inspection", "label": "Quality Inspection", "fieldtype": "Link", "options": "Quality Inspection", "insert_after": "hml_job_card"},
+	{"fieldname": "hml_supplier", "label": "Supplier (if material defect)", "fieldtype": "Link", "options": "Supplier", "insert_after": "hml_quality_inspection",
+		"description": "Links the defect to supplier quality; feeds the Supplier Quality Scorecard review."},
+	{"fieldname": "hml_rca_section", "label": "Root Cause Analysis", "fieldtype": "Section Break", "insert_after": "hml_supplier"},
+	{"fieldname": "hml_rca_method", "label": "Method", "fieldtype": "Select", "options": "\n5-Why\nFishbone (6M)\nFault Tree", "insert_after": "hml_rca_section"},
+	{"fieldname": "hml_root_cause_category", "label": "Root Cause Category (6M)", "fieldtype": "Select", "options": "\nMan\nMachine\nMethod\nMaterial\nMeasurement\nMother Nature", "insert_after": "hml_rca_method", "in_standard_filter": 1},
+	{"fieldname": "hml_root_cause", "label": "Root Cause", "fieldtype": "Small Text", "insert_after": "hml_root_cause_category"},
+	{"fieldname": "hml_corrective_action", "label": "Corrective Action Plan", "fieldtype": "Link", "options": "Corrective Action", "insert_after": "hml_root_cause"},
+]
+
+
 def get_custom_fields():
 	return {
 		"Item": ITEM_FIELDS,
@@ -274,4 +354,11 @@ def get_custom_fields():
 		"Purchase Order": PURCHASE_ORDER_FIELDS,
 		"Quality Inspection": QUALITY_INSPECTION_FIELDS,
 		"Material Request": MATERIAL_REQUEST_FIELDS,
+		"Workstation": WORKSTATION_FIELDS,
+		"Quality Inspection Template": QI_TEMPLATE_FIELDS,
+		"BOM": BOM_FIELDS,
+		"BOM Operation": BOM_OPERATION_FIELDS,
+		"Work Order": WORK_ORDER_FIELDS,
+		"Job Card": JOB_CARD_FIELDS,
+		"Non Conformance": NON_CONFORMANCE_FIELDS,
 	}

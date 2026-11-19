@@ -1,0 +1,42 @@
+{
+ "add_total_row": 0,
+ "columns": [],
+ "creation": "2026-11-19 12:00:00.000000",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letterhead": null,
+ "modified": "2026-11-19 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Horizon ERP",
+ "name": "HML Corrective Action Tracker",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "ref_doctype": "Corrective Action",
+ "report_name": "HML Corrective Action Tracker",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "Quality Manager"
+  },
+  {
+   "role": "HML Quality Inspector"
+  },
+  {
+   "role": "HML Operations Head"
+  },
+  {
+   "role": "Manufacturing Manager"
+  },
+  {
+   "role": "Purchase Manager"
+  },
+  {
+   "role": "HML Department Head"
+  }
+ ],
+ "timeout": 0
+}
