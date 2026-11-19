@@ -49,6 +49,25 @@ doc_events = {
 	"Sales Invoice": {
 		"validate": "horizon_erp.overrides.selling.validate_sales_invoice",
 	},
+	"Purchase Order": {
+		"validate": "horizon_erp.overrides.buying.validate_purchase_order",
+		"before_save": "horizon_erp.overrides.buying.before_save_purchase_order",
+		"on_update": "horizon_erp.overrides.buying.on_update_purchase_order",
+		"on_submit": "horizon_erp.overrides.buying.on_submit_purchase_order",
+		"on_cancel": "horizon_erp.overrides.buying.on_cancel_purchase_order",
+	},
+	"Purchase Receipt": {
+		"before_validate": "horizon_erp.overrides.buying.before_validate_purchase_receipt",
+		"validate": "horizon_erp.overrides.buying.validate_blacklisted_without_po",
+		"on_submit": "horizon_erp.overrides.buying.on_submit_purchase_receipt",
+	},
+	"Purchase Invoice": {
+		"validate": "horizon_erp.overrides.buying.validate_blacklisted_without_po",
+	},
+	"Quality Inspection": {
+		"validate": "horizon_erp.overrides.buying.validate_quality_inspection",
+		"before_submit": "horizon_erp.overrides.buying.before_submit_quality_inspection",
+	},
 	"Stock Reconciliation": {
 		"before_validate": "horizon_erp.tasks.inventory.before_stock_reco_validate",
 		"on_submit": "horizon_erp.tasks.inventory.on_stock_reco_submit",
@@ -57,6 +76,16 @@ doc_events = {
 
 # ---------------------------------------------------------------- scheduler
 scheduler_events = {
+	"cron": {
+		"0 */6 * * *": ["horizon_erp.tasks.approvals.send_approval_reminders"],
+	},
+	"hourly": [
+		"horizon_erp.tasks.approvals.escalate_stale_approvals",
+		"horizon_erp.tasks.reorder.create_reorder_material_requests",
+	],
+	"daily": [
+		"horizon_erp.tasks.reorder.recalculate_reorder_levels",
+	],
 	"weekly": [
 		"horizon_erp.tasks.inventory.create_cycle_count_drafts",
 	],

@@ -1,0 +1,127 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-11-19 12:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "item_code",
+  "supplier",
+  "lead_time_days",
+  "forecast_qty",
+  "safety_stock",
+  "current_stock",
+  "open_order_qty",
+  "planned_qty",
+  "order_by_date",
+  "rate",
+  "planned_value",
+  "actual_ordered_qty",
+  "variance_qty"
+ ],
+ "fields": [
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "options": "Supplier",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "lead_time_days",
+   "fieldtype": "Int",
+   "label": "Lead Time (d)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "forecast_qty",
+   "fieldtype": "Float",
+   "label": "Forecast Demand",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "safety_stock",
+   "fieldtype": "Float",
+   "label": "Safety Stock",
+   "read_only": 1
+  },
+  {
+   "fieldname": "current_stock",
+   "fieldtype": "Float",
+   "label": "Stock on Hand",
+   "read_only": 1
+  },
+  {
+   "fieldname": "open_order_qty",
+   "fieldtype": "Float",
+   "label": "Open PO / MR Qty",
+   "read_only": 1
+  },
+  {
+   "fieldname": "planned_qty",
+   "fieldtype": "Float",
+   "label": "Planned Purchase Qty",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "order_by_date",
+   "fieldtype": "Date",
+   "label": "Order By",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "rate",
+   "fieldtype": "Currency",
+   "label": "Rate"
+  },
+  {
+   "fieldname": "planned_value",
+   "fieldtype": "Currency",
+   "label": "Planned Value",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "actual_ordered_qty",
+   "fieldtype": "Float",
+   "label": "Actually Ordered",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "variance_qty",
+   "fieldtype": "Float",
+   "label": "Variance (Actual - Plan)",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-11-19 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Horizon ERP",
+ "name": "Quarterly Purchase Plan Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "istable": 1,
+ "editable_grid": 1
+}

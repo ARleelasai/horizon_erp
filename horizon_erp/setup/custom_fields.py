@@ -216,6 +216,50 @@ LEAD_FIELDS = [
 ]
 
 
+PURCHASE_ORDER_FIELDS = [
+	{"fieldname": "hml_approval_section", "label": "Approval", "fieldtype": "Section Break", "insert_after": "in_words"},
+	{"fieldname": "hml_approval_tier", "label": "Approval Tier", "fieldtype": "Select", "options": "\n1 - Dept Head\n2 - Dept Head + Procurement\n3 - Dept Head + Procurement + Finance Director",
+		"read_only": 1, "insert_after": "hml_approval_section", "in_standard_filter": 1,
+		"description": "Below Rs 1 L: tier 1. Rs 1-5 L: tier 2. Above Rs 5 L or blacklisted supplier: tier 3."},
+	{"fieldname": "hml_urgency", "label": "Urgency", "fieldtype": "Select", "options": "Normal\nUrgent\nCritical - Line Stoppage", "default": "Normal", "insert_after": "hml_approval_tier", "in_standard_filter": 1},
+	{"fieldname": "hml_state_since", "label": "In Current Approval State Since", "fieldtype": "Datetime", "read_only": 1, "insert_after": "hml_urgency", "allow_on_submit": 1, "no_copy": 1},
+	{"fieldname": "hml_escalation_count", "label": "Auto-escalations", "fieldtype": "Int", "read_only": 1, "insert_after": "hml_state_since", "no_copy": 1, "allow_on_submit": 1},
+	{"fieldname": "hml_col_approval", "fieldtype": "Column Break", "insert_after": "hml_escalation_count"},
+	{"fieldname": "hml_supplier_blacklisted", "label": "Supplier Blacklisted", "fieldtype": "Check", "read_only": 1, "insert_after": "hml_col_approval", "no_copy": 1},
+	{"fieldname": "hml_blacklist_override_reason", "label": "Blacklist Override Reason", "fieldtype": "Small Text", "insert_after": "hml_supplier_blacklisted",
+		"depends_on": "hml_supplier_blacklisted", "mandatory_depends_on": "hml_supplier_blacklisted",
+		"description": "Why this blacklisted supplier must be used (e.g. sole source). Logged for audit and escalated to the Finance Director."},
+	{"fieldname": "hml_rejection_comment", "label": "Last Rejection Comment", "fieldtype": "Small Text", "read_only": 1, "insert_after": "hml_blacklist_override_reason", "no_copy": 1},
+]
+
+QUALITY_INSPECTION_FIELDS = [
+	{"fieldname": "hml_result_section", "label": "Horizon Result", "fieldtype": "Section Break", "insert_after": "remarks"},
+	{"fieldname": "hml_result", "label": "Result", "fieldtype": "Select", "options": "\nPass\nConditional Pass\nFail\nRework", "insert_after": "hml_result_section", "in_list_view": 1, "in_standard_filter": 1,
+		"description": "Pass / Conditional Pass set status Accepted; Fail / Rework set Rejected."},
+	{"fieldname": "hml_rejection_reason", "label": "Rejection Reason", "fieldtype": "Link", "options": "Quality Rejection Reason", "insert_after": "hml_result",
+		"depends_on": "eval:['Fail','Rework'].includes(doc.hml_result)", "mandatory_depends_on": "eval:['Fail','Rework'].includes(doc.hml_result)"},
+	{"fieldname": "hml_rejected_qty", "label": "Rejected Qty", "fieldtype": "Float", "insert_after": "hml_rejection_reason",
+		"depends_on": "eval:['Fail','Rework'].includes(doc.hml_result)"},
+	{"fieldname": "hml_concession_note", "label": "Concession / Deviation Note", "fieldtype": "Small Text", "insert_after": "hml_rejected_qty",
+		"depends_on": "eval:doc.hml_result=='Conditional Pass'", "mandatory_depends_on": "eval:doc.hml_result=='Conditional Pass'",
+		"description": "Accepted with deviation: what is out of spec and who agreed to use it."},
+	{"fieldname": "hml_col_result", "fieldtype": "Column Break", "insert_after": "hml_concession_note"},
+	{"fieldname": "hml_evidence_photo", "label": "Evidence Photo", "fieldtype": "Attach Image", "insert_after": "hml_col_result",
+		"mandatory_depends_on": "eval:['Fail','Rework'].includes(doc.hml_result)", "description": "Mandatory for failed items."},
+	{"fieldname": "hml_received_at", "label": "Goods Received At", "fieldtype": "Datetime", "read_only": 1, "insert_after": "hml_evidence_photo"},
+	{"fieldname": "hml_inspection_hours", "label": "Hours from Receipt to Inspection", "fieldtype": "Float", "read_only": 1, "insert_after": "hml_received_at", "precision": "1"},
+	{"fieldname": "hml_sla_met", "label": "Inspection SLA Met (4 h)", "fieldtype": "Check", "read_only": 1, "insert_after": "hml_inspection_hours"},
+	{"fieldname": "hml_supplier", "label": "Supplier", "fieldtype": "Link", "options": "Supplier", "read_only": 1, "insert_after": "hml_sla_met", "in_standard_filter": 1},
+	{"fieldname": "hml_item_group", "label": "Item Category", "fieldtype": "Link", "options": "Item Group", "read_only": 1, "insert_after": "hml_supplier", "fetch_from": "item_code.item_group"},
+]
+
+MATERIAL_REQUEST_FIELDS = [
+	{"fieldname": "hml_supplier", "label": "Grouped for Supplier", "fieldtype": "Link", "options": "Supplier", "insert_after": "material_request_type", "read_only": 1,
+		"description": "Set by the hourly reorder job, which raises one request per default supplier."},
+	{"fieldname": "hml_auto_reorder", "label": "Auto Reorder", "fieldtype": "Check", "read_only": 1, "insert_after": "hml_supplier"},
+]
+
+
 def get_custom_fields():
 	return {
 		"Item": ITEM_FIELDS,
@@ -227,4 +271,7 @@ def get_custom_fields():
 		"Sales Order Item": _planning_item_fields("transaction_date"),
 		"Delivery Note": DELIVERY_NOTE_FIELDS,
 		"Lead": LEAD_FIELDS,
+		"Purchase Order": PURCHASE_ORDER_FIELDS,
+		"Quality Inspection": QUALITY_INSPECTION_FIELDS,
+		"Material Request": MATERIAL_REQUEST_FIELDS,
 	}

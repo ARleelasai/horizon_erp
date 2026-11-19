@@ -110,6 +110,65 @@ def make_quotation_workflow():
 	)
 
 
+PO_PENDING_STATES = ["Pending Dept Head", "Pending Procurement", "Pending Finance Director"]
+PO_STATE_ROLE = {
+	"Pending Dept Head": "HML Department Head",
+	"Pending Procurement": "HML Procurement Manager",
+	"Pending Finance Director": "HML Finance Director",
+}
+PO_NEXT_STATE = {
+	"Pending Dept Head": "Pending Procurement",
+	"Pending Procurement": "Pending Finance Director",
+}
+
+
+def make_purchase_order_workflow():
+	"""Tiered PO approval. Tier is computed on validate (overrides/buying.py)."""
+	ensure_states(
+		[
+			("Draft", "Inverse"),
+			("Pending Dept Head", "Warning"),
+			("Pending Procurement", "Warning"),
+			("Pending Finance Director", "Danger"),
+			("Approved", "Success"),
+			("Rejected", "Danger"),
+			("Cancelled", "Inverse"),
+		]
+	)
+	ensure_actions(["Submit", "Submit for Approval", "Approve", "Reject", "Revise", "Cancel"])
+	t1 = f'{HML} and doc.hml_approval_tier.startswith("1")'
+	t3 = f'{HML} and doc.hml_approval_tier.startswith("3")'
+	t23 = f'{HML} and not doc.hml_approval_tier.startswith("1")'
+	upsert_workflow(
+		"HML Purchase Order Approval",
+		"Purchase Order",
+		states=[
+			("Draft", 0, "Purchase User", None, None),
+			("Pending Dept Head", 0, "HML Department Head", None, None),
+			("Pending Procurement", 0, "HML Procurement Manager", None, None),
+			("Pending Finance Director", 0, "HML Finance Director", None, None),
+			("Rejected", 0, "Purchase User", None, None),
+			("Approved", 1, "Purchase Manager", None, None),
+			("Cancelled", 2, "Purchase Manager", None, None),
+		],
+		transitions=[
+			# other companies on the site keep a one-click submit
+			("Draft", "Submit", "Approved", "Purchase User", NOT_HML, 1),
+			("Draft", "Submit for Approval", "Pending Dept Head", "Purchase User", HML, 1),
+			("Pending Dept Head", "Approve", "Approved", "HML Department Head", t1, 0),
+			("Pending Dept Head", "Approve", "Pending Procurement", "HML Department Head", t23, 0),
+			("Pending Dept Head", "Reject", "Rejected", "HML Department Head", None, 0),
+			("Pending Procurement", "Approve", "Approved", "HML Procurement Manager", f"{HML} and not doc.hml_approval_tier.startswith('3')", 0),
+			("Pending Procurement", "Approve", "Pending Finance Director", "HML Procurement Manager", t3, 0),
+			("Pending Procurement", "Reject", "Rejected", "HML Procurement Manager", None, 0),
+			("Pending Finance Director", "Approve", "Approved", "HML Finance Director", None, 0),
+			("Pending Finance Director", "Reject", "Rejected", "HML Finance Director", None, 0),
+			("Rejected", "Revise", "Draft", "Purchase User", None, 1),
+			("Approved", "Cancel", "Cancelled", "Purchase Manager", None, 1),
+		],
+	)
+
+
 def make_notifications():
 	upsert_notification(
 		"HML Delivery Dispatched",
@@ -161,4 +220,5 @@ def upsert_notification(name, values):
 
 def make_all():
 	make_quotation_workflow()
+	make_purchase_order_workflow()
 	make_notifications()
