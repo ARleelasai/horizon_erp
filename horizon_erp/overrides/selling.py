@@ -237,8 +237,51 @@ def validate_sales_order(doc, method=None):
 	doc.hml_delivery_risk = 1 if doc.delivery_date and doc.hml_estimated_delivery_date and getdate(doc.delivery_date) < getdate(doc.hml_estimated_delivery_date) else 0
 
 
+CREDIT_OVERRIDE_ROLES = ("HML Finance Director", "Accounts Manager")
+
+
+def check_credit_limit(doc):
+	"""Credit control for Horizon (the DMS credit check on this site only runs
+	for companies with DMS settings, so Horizon enforces its own).
+
+	Exposure = posted receivable + open orders not yet invoiced + this order.
+	Same rule every day of the month: the month-end sales push is exactly
+	when credit discipline matters. Beyond the limit only the Finance
+	Director / Accounts Manager can submit, with a written reason (logged).
+	"""
+	if doc.get("is_internal_customer"):
+		return
+	limit = frappe.db.get_value(
+		"Customer Credit Limit", {"parent": doc.customer, "company": doc.company}, ["credit_limit", "bypass_credit_limit_check"], as_dict=True
+	)
+	if not limit or not flt(limit.credit_limit) or limit.bypass_credit_limit_check:
+		return
+	outstanding = flt(frappe.db.sql(
+		"select sum(debit - credit) from `tabGL Entry` where company = %s and party_type = 'Customer' and party = %s and is_cancelled = 0",
+		(doc.company, doc.customer))[0][0])
+	open_orders = flt(frappe.db.sql(
+		"""select sum(base_grand_total * (100 - per_billed) / 100) from `tabSales Order`
+		where company = %s and customer = %s and docstatus = 1 and status not in ('Closed', 'Completed') and name != %s""",
+		(doc.company, doc.customer, doc.name))[0][0])
+	exposure = outstanding + open_orders + flt(doc.base_grand_total)
+	doc.hml_credit_exposure = exposure
+	if exposure <= flt(limit.credit_limit):
+		return
+	msg = _("Credit limit {0}; exposure would be {1} (receivable {2} + open orders {3} + this order {4}).").format(
+		frappe.format(limit.credit_limit, "Currency"), frappe.format(exposure, "Currency"), frappe.format(outstanding, "Currency"),
+		frappe.format(open_orders, "Currency"), frappe.format(doc.base_grand_total, "Currency"))
+	if _has_role(*CREDIT_OVERRIDE_ROLES) and (doc.hml_credit_override_reason or "").strip():
+		doc.add_comment("Comment", _("Credit limit overridden by {0}: {1}. {2}").format(frappe.session.user, doc.hml_credit_override_reason, msg))
+		return
+	frappe.throw(msg + "<br>" + _("Collect payment, reduce the order, or ask Finance to approve with a Credit Limit Override Reason."),
+		title=_("Credit limit exceeded"))
+
+
 def before_submit_sales_order(doc, method=None):
-	if not is_hml(doc) or not doc.hml_needs_discount_approval:
+	if not is_hml(doc):
+		return
+	check_credit_limit(doc)
+	if not doc.hml_needs_discount_approval:
 		return
 	quotations = {row.prevdoc_docname for row in doc.items}
 	if None in quotations or "" in quotations or not quotations:

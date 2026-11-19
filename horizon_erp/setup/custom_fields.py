@@ -179,6 +179,9 @@ def _pricing_fields(after):
 		{"fieldname": "hml_estimated_delivery_date", "label": "Earliest Achievable Delivery", "fieldtype": "Date", "read_only": 1, "insert_after": "hml_delivery_section",
 			"description": "Latest of the item estimates: stock on hand ships in 2 days; otherwise component lead time + manufacturing lead time + 2 days."},
 		{"fieldname": "hml_delivery_risk", "label": "Promised Before Achievable Date", "fieldtype": "Check", "read_only": 1, "insert_after": "hml_estimated_delivery_date"},
+		{"fieldname": "hml_credit_exposure", "label": "Credit Exposure incl. this order", "fieldtype": "Currency", "read_only": 1, "insert_after": "hml_delivery_risk"},
+		{"fieldname": "hml_credit_override_reason", "label": "Credit Limit Override Reason", "fieldtype": "Small Text", "insert_after": "hml_credit_exposure",
+			"description": "Only the Finance Director / Accounts Manager can submit an order beyond the customer's credit limit, with a reason."},
 	]
 
 

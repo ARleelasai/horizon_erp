@@ -190,6 +190,17 @@ def _gst_split():
 	assert any("IGST" in h for h in heads2), heads2
 
 
+@check("Order beyond credit limit needs Finance override")
+def _credit_limit():
+	cust = customer("Konkan Steel Structures")
+	frappe.db.set_value("Customer Credit Limit", {"parent": cust, "company": COMPANY}, "credit_limit", 60000)
+	so = frappe.get_doc({"doctype": "Sales Order", "company": COMPANY, "customer": cust, "transaction_date": nowdate(),
+		"delivery_date": add_days(nowdate(), 10), "po_no": "T-CR", "company_address": ADDRESS_MUMBAI, "selling_price_list": "HML Standard Selling",
+		"items": [{"item_code": "SP-BELT-600-10M", "qty": 2, "warehouse": WH_FG}]})
+	so.insert()
+	expect_error(so.submit, "credit limit")
+
+
 def run():
 	frappe.set_user("Administrator")
 	frappe.flags.mute_emails = True
