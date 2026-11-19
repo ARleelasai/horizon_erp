@@ -273,3 +273,31 @@ def return_rejected_goods(pr):
 		),
 	)
 	return ret.name, debit_name
+
+
+# ------------------------------------------------------- reverse charge (RCM)
+
+
+def apply_rcm_for_unregistered(doc, method=None):
+	"""Horizon policy (assignment): purchases from unregistered suppliers carry
+	reverse-charge GST. India Compliance can do this site-wide (GST Settings
+	"enable RCM for unregistered supplier"); doing it here keeps the rule to
+	Horizon and leaves the other company on the site untouched.
+
+	Note for Finance: under current law RCM on unregistered purchases applies
+	only to notified goods/services (s.9(4)); the rule is kept configurable so
+	it can be narrowed without code changes (RCM_THRESHOLD).
+	"""
+	if not is_hml(doc) or doc.get("is_return") or doc.get("is_internal_supplier"):
+		return
+	if frappe.db.get_value("Supplier", doc.supplier, "gst_category") != "Unregistered" or doc.get("is_reverse_charge"):
+		return
+	if flt(doc.get("net_total") or sum(flt(r.amount) for r in doc.items)) <= RCM_THRESHOLD:
+		return
+	from india_compliance.gst_india.overrides.transaction import set_reverse_charge
+
+	doc.gst_category = "Unregistered"
+	set_reverse_charge(doc)
+
+
+RCM_THRESHOLD = 5000

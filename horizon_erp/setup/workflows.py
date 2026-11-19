@@ -191,6 +191,51 @@ def make_production_audit_workflow():
 	)
 
 
+def make_payment_batch_workflow():
+	ensure_states([("Draft", "Inverse"), ("Pending Accounts Manager", "Warning"), ("Pending Finance Director", "Danger"),
+		("Approved", "Success"), ("Rejected", "Danger")])
+	ensure_actions(["Submit for Approval", "Approve", "Reject", "Revise"])
+	big = "doc.total_amount > 500000"
+	upsert_workflow(
+		"HML Payment Batch Approval",
+		"Payment Batch",
+		states=[
+			("Draft", 0, "Accounts User", None, None),
+			("Pending Accounts Manager", 0, "Accounts Manager", None, None),
+			("Pending Finance Director", 0, "HML Finance Director", None, None),
+			("Rejected", 0, "Accounts User", None, None),
+			("Approved", 1, "Accounts Manager", None, None),
+		],
+		transitions=[
+			("Draft", "Submit for Approval", "Pending Accounts Manager", "Accounts User", f"not ({big})", 1),
+			("Draft", "Submit for Approval", "Pending Finance Director", "Accounts User", big, 1),
+			("Pending Accounts Manager", "Approve", "Approved", "Accounts Manager", None, 0),
+			("Pending Accounts Manager", "Reject", "Rejected", "Accounts Manager", None, 0),
+			("Pending Finance Director", "Approve", "Approved", "HML Finance Director", None, 0),
+			("Pending Finance Director", "Reject", "Rejected", "HML Finance Director", None, 0),
+			("Rejected", "Revise", "Draft", "Accounts User", None, 1),
+		],
+	)
+
+
+def make_budget_overage_workflow():
+	ensure_states([("Pending", "Warning"), ("Approved", "Success"), ("Rejected", "Danger")])
+	ensure_actions(["Approve", "Reject"])
+	upsert_workflow(
+		"HML Budget Overage Approval",
+		"Budget Overage Approval",
+		states=[
+			("Pending", 0, "Accounts User", None, None),
+			("Rejected", 0, "HML Finance Director", None, None),
+			("Approved", 1, "HML Finance Director", None, None),
+		],
+		transitions=[
+			("Pending", "Approve", "Approved", "HML Finance Director", None, 0),
+			("Pending", "Reject", "Rejected", "HML Finance Director", None, 0),
+		],
+	)
+
+
 def make_notifications():
 	upsert_notification(
 		"HML Delivery Dispatched",
@@ -244,4 +289,6 @@ def make_all():
 	make_quotation_workflow()
 	make_purchase_order_workflow()
 	make_production_audit_workflow()
+	make_payment_batch_workflow()
+	make_budget_overage_workflow()
 	make_notifications()

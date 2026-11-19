@@ -1,0 +1,130 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-11-19 12:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "job",
+  "status",
+  "started_at",
+  "duration_s",
+  "col1",
+  "findings_count",
+  "retry_of",
+  "method",
+  "sec",
+  "summary",
+  "details",
+  "error"
+ ],
+ "fields": [
+  {
+   "fieldname": "job",
+   "fieldtype": "Data",
+   "label": "Job",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Success\nFindings\nFailed\nRetry Pending\nRetried OK\nFailed Again",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "started_at",
+   "fieldtype": "Datetime",
+   "label": "Started At",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "duration_s",
+   "fieldtype": "Float",
+   "label": "Duration (s)"
+  },
+  {
+   "fieldname": "col1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "findings_count",
+   "fieldtype": "Int",
+   "label": "Findings",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "retry_of",
+   "fieldtype": "Link",
+   "label": "Retry Of",
+   "options": "Integration Log"
+  },
+  {
+   "fieldname": "method",
+   "fieldtype": "Data",
+   "label": "Method Path"
+  },
+  {
+   "fieldname": "sec",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "summary",
+   "fieldtype": "Small Text",
+   "label": "Summary"
+  },
+  {
+   "fieldname": "details",
+   "fieldtype": "Code",
+   "label": "Details (JSON)",
+   "options": "JSON"
+  },
+  {
+   "fieldname": "error",
+   "fieldtype": "Code",
+   "label": "Error / Traceback"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-11-19 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Horizon ERP",
+ "name": "Integration Log",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "delete": 1
+  },
+  {
+   "role": "HML Finance Director",
+   "read": 1,
+   "report": 1,
+   "print": 1
+  },
+  {
+   "role": "Stock Manager",
+   "read": 1,
+   "report": 1,
+   "print": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0,
+ "autoname": "hash",
+ "title_field": "job",
+ "description": "Outcome of every Horizon scheduled job and API integration: findings, errors, retries.",
+ "in_create": 1
+}

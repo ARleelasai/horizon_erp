@@ -1,0 +1,201 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-11-19 12:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "bank_account",
+  "account",
+  "company",
+  "period_end",
+  "col1",
+  "statement_balance",
+  "gl_balance",
+  "difference",
+  "explained_difference",
+  "unexplained",
+  "sec",
+  "unreconciled_count",
+  "unclassified_count",
+  "notes",
+  "signed_off_by",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "bank_account",
+   "fieldtype": "Link",
+   "label": "Bank Account",
+   "options": "Bank Account",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "account",
+   "fieldtype": "Link",
+   "label": "GL Account",
+   "options": "Account",
+   "fetch_from": "bank_account.account",
+   "read_only": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "fetch_from": "bank_account.company",
+   "read_only": 1
+  },
+  {
+   "fieldname": "period_end",
+   "fieldtype": "Date",
+   "label": "Period End",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "col1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "statement_balance",
+   "fieldtype": "Currency",
+   "label": "Bank Statement Closing Balance",
+   "reqd": 1
+  },
+  {
+   "fieldname": "gl_balance",
+   "fieldtype": "Currency",
+   "label": "GL Balance",
+   "read_only": 1
+  },
+  {
+   "fieldname": "difference",
+   "fieldtype": "Currency",
+   "label": "Difference",
+   "read_only": 1
+  },
+  {
+   "fieldname": "explained_difference",
+   "fieldtype": "Currency",
+   "label": "Explained by Exceptions",
+   "read_only": 1
+  },
+  {
+   "fieldname": "unexplained",
+   "fieldtype": "Currency",
+   "label": "Unexplained",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "sec",
+   "fieldtype": "Section Break",
+   "label": "Open Items at Period End"
+  },
+  {
+   "fieldname": "unreconciled_count",
+   "fieldtype": "Int",
+   "label": "Unreconciled Bank Transactions",
+   "read_only": 1
+  },
+  {
+   "fieldname": "unclassified_count",
+   "fieldtype": "Int",
+   "label": "Without Exception Classification",
+   "read_only": 1
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Sign-off Notes"
+  },
+  {
+   "fieldname": "signed_off_by",
+   "fieldtype": "Link",
+   "label": "Signed Off By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "options": "Bank Reconciliation Lock",
+   "read_only": 1,
+   "no_copy": 1,
+   "print_hide": 1,
+   "search_index": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-11-19 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Horizon ERP",
+ "name": "Bank Reconciliation Lock",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "create": 1,
+   "write": 1,
+   "delete": 1,
+   "submit": 1,
+   "cancel": 1,
+   "amend": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "create": 1,
+   "write": 1,
+   "delete": 1,
+   "submit": 1,
+   "cancel": 1,
+   "amend": 1
+  },
+  {
+   "role": "HML Finance Director",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "create": 1,
+   "write": 1,
+   "delete": 1,
+   "submit": 1,
+   "cancel": 1,
+   "amend": 1
+  },
+  {
+   "role": "Accounts User",
+   "read": 1,
+   "report": 1,
+   "print": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "autoname": "format:BRL-{bank_account}-{period_end}",
+ "naming_rule": "Expression",
+ "is_submittable": 1,
+ "title_field": "bank_account",
+ "description": "Monthly reconciliation sign-off. Once submitted, no bank entries can be posted on or before the period end for this account."
+}

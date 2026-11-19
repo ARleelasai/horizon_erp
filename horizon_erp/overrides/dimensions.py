@@ -63,9 +63,10 @@ def header_branch(doc):
 	return BRANCH_MUMBAI
 
 
-# HRMS uses `branch` on these as an employee filter, not only as a dimension:
-# a defaulted HQ Mumbai would silently drop Delhi staff from the payroll run.
-SKIP_DOCTYPES = {"Payroll Entry", "Employee", "Salary Structure Assignment"}
+# On these `branch` is a filter / budget target, not just a dimension: a
+# defaulted HQ Mumbai would drop Delhi staff from a payroll run or turn a
+# cost-center budget into a Mumbai-only budget.
+SKIP_DOCTYPES = {"Payroll Entry", "Employee", "Salary Structure Assignment", "Budget"}
 
 
 def _dimension_doctypes():

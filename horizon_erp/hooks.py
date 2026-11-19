@@ -65,8 +65,16 @@ doc_events = {
 		"on_submit": "horizon_erp.overrides.buying.on_submit_purchase_receipt",
 	},
 	"Purchase Invoice": {
-		"validate": "horizon_erp.overrides.buying.validate_blacklisted_without_po",
+		"before_validate": "horizon_erp.overrides.buying.apply_rcm_for_unregistered",
+		"validate": [
+			"horizon_erp.overrides.buying.validate_blacklisted_without_po",
+			"horizon_erp.strategy.migration.validate_purchase_invoice_po",
+		],
 	},
+	"Payment Entry": {"validate": "horizon_erp.accounts.bank.validate_bank_lock"},
+	"Journal Entry": {"validate": "horizon_erp.accounts.bank.validate_bank_lock"},
+	"Customer": {"validate": "horizon_erp.strategy.migration.validate_party_gstin"},
+	"Supplier": {"validate": "horizon_erp.strategy.migration.validate_party_gstin"},
 	"Quality Inspection": {
 		"validate": "horizon_erp.overrides.buying.validate_quality_inspection",
 		"before_submit": [
@@ -99,17 +107,39 @@ doc_events = {
 scheduler_events = {
 	"cron": {
 		"0 */6 * * *": ["horizon_erp.tasks.approvals.send_approval_reminders"],
+		"0 18 * * *": ["horizon_erp.tasks.jobs.daily_summary"],
+		"0 9 1 * *": ["horizon_erp.tasks.jobs.monthly_budget"],
 	},
 	"hourly": [
 		"horizon_erp.tasks.approvals.escalate_stale_approvals",
-		"horizon_erp.tasks.reorder.create_reorder_material_requests",
+		# reorder requests + inventory accuracy, logged; also retries failed jobs once
+		"horizon_erp.tasks.jobs.hourly",
 	],
 	"daily": [
 		"horizon_erp.tasks.reorder.recalculate_reorder_levels",
 		"horizon_erp.horizon_erp.doctype.corrective_action.corrective_action.mark_overdue",
 		"horizon_erp.overrides.projects.refresh_all_projects",
+		"horizon_erp.strategy.conflicts.daily_scan",
+		"horizon_erp.accounts.budget.alert_cost_centers_over_90",
 	],
 	"weekly": [
 		"horizon_erp.tasks.inventory.create_cycle_count_drafts",
+	],
+}
+
+# ---------------------------------------------------------------- API
+# /api/method/get_inventory_snapshot (short path required by the Delhi DC integration)
+override_whitelisted_methods = {
+	"get_inventory_snapshot": "horizon_erp.api.inventory.get_inventory_snapshot",
+}
+
+# ---------------------------------------------------------------- printing
+jinja = {
+	"methods": [
+		"horizon_erp.printing.hml_customer_outstanding",
+		"horizon_erp.printing.hml_payment_due_date",
+		"horizon_erp.printing.hml_total_discount_pct",
+		"horizon_erp.printing.hml_similar_in_stock",
+		"horizon_erp.printing.hml_company_registration",
 	],
 }

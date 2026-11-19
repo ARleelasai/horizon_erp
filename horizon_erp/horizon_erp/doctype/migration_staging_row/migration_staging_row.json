@@ -1,0 +1,166 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-11-19 12:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "entity",
+  "legacy_id",
+  "legacy_name",
+  "issue",
+  "rule",
+  "col1",
+  "status",
+  "original_value",
+  "corrected_value",
+  "amount",
+  "qty",
+  "sec",
+  "payload",
+  "resolution_note",
+  "reviewed_by"
+ ],
+ "fields": [
+  {
+   "fieldname": "entity",
+   "fieldtype": "Select",
+   "label": "Entity",
+   "options": "Customer\nItem Stock\nPurchase Invoice",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "legacy_id",
+   "fieldtype": "Data",
+   "label": "Legacy ID",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "legacy_name",
+   "fieldtype": "Data",
+   "label": "Legacy Name"
+  },
+  {
+   "fieldname": "issue",
+   "fieldtype": "Select",
+   "label": "Issue",
+   "options": "\nInvalid GSTIN\nGSTIN State Mismatch\nNegative Stock\nPurchase Invoice Without PO\nNone",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "rule",
+   "fieldtype": "Data",
+   "label": "Rule Applied",
+   "read_only": 1
+  },
+  {
+   "fieldname": "col1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Pending\nAuto-fixed\nNeeds Review\nApproved for Import\nImported\nRejected",
+   "default": "Pending",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "original_value",
+   "fieldtype": "Data",
+   "label": "Original Value"
+  },
+  {
+   "fieldname": "corrected_value",
+   "fieldtype": "Data",
+   "label": "Corrected Value"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount / Value"
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "label": "Qty"
+  },
+  {
+   "fieldname": "sec",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "payload",
+   "fieldtype": "Code",
+   "label": "Legacy Record (JSON)",
+   "options": "JSON"
+  },
+  {
+   "fieldname": "resolution_note",
+   "fieldtype": "Small Text",
+   "label": "Resolution Note"
+  },
+  {
+   "fieldname": "reviewed_by",
+   "fieldtype": "Link",
+   "label": "Reviewed By",
+   "options": "User"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-11-19 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Horizon ERP",
+ "name": "Migration Staging Row",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "create": 1,
+   "write": 1,
+   "delete": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "create": 1,
+   "write": 1
+  },
+  {
+   "role": "Stock Manager",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "create": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "autoname": "hash",
+ "title_field": "legacy_id",
+ "description": "Records from the legacy ERP waiting to be cleaned before import. Validation rules decide auto-fix vs human review.",
+ "allow_import": 1
+}

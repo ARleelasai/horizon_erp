@@ -1,0 +1,375 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-11-19 12:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "company",
+  "sales_order",
+  "customer",
+  "item_code",
+  "work_order",
+  "delivery_date",
+  "col1",
+  "trigger",
+  "ordered_qty",
+  "ready_qty",
+  "defective_qty",
+  "rework_hours_needed",
+  "rework_hours_free",
+  "sec_pos",
+  "sales_position",
+  "operations_position",
+  "quality_position",
+  "finance_position",
+  "sec_cost",
+  "cost_of_delay_per_day",
+  "delay_days",
+  "cost_of_delay",
+  "col2",
+  "cost_of_quality",
+  "expedite_cost",
+  "sec_dec",
+  "decision",
+  "decision_rationale",
+  "ship_now_qty",
+  "new_delivery_date",
+  "customer_agreed",
+  "col3",
+  "sales_ack",
+  "operations_ack",
+  "quality_ack",
+  "finance_ack",
+  "lessons",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "read_only": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "default": "Horizon Manufacturing Ltd"
+  },
+  {
+   "fieldname": "sales_order",
+   "fieldtype": "Link",
+   "label": "Sales Order",
+   "options": "Sales Order",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "fetch_from": "sales_order.customer",
+   "read_only": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "work_order",
+   "fieldtype": "Link",
+   "label": "Work Order",
+   "options": "Work Order"
+  },
+  {
+   "fieldname": "delivery_date",
+   "fieldtype": "Date",
+   "label": "Promised Delivery",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "col1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "trigger",
+   "fieldtype": "Select",
+   "label": "Trigger",
+   "options": "Inspection Failure\nProduction Audit Hold\nCapacity Shortfall\nManual",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "ordered_qty",
+   "fieldtype": "Float",
+   "label": "Pending Qty",
+   "read_only": 1
+  },
+  {
+   "fieldname": "ready_qty",
+   "fieldtype": "Float",
+   "label": "QC-Passed Qty Ready"
+  },
+  {
+   "fieldname": "defective_qty",
+   "fieldtype": "Float",
+   "label": "Defective / In Rework"
+  },
+  {
+   "fieldname": "rework_hours_needed",
+   "fieldtype": "Float",
+   "label": "Rework Hours Needed"
+  },
+  {
+   "fieldname": "rework_hours_free",
+   "fieldtype": "Float",
+   "label": "Rework Hours Free Before Deadline"
+  },
+  {
+   "fieldname": "sec_pos",
+   "fieldtype": "Section Break",
+   "label": "Positions"
+  },
+  {
+   "fieldname": "sales_position",
+   "fieldtype": "Small Text",
+   "label": "Sales"
+  },
+  {
+   "fieldname": "operations_position",
+   "fieldtype": "Small Text",
+   "label": "Operations"
+  },
+  {
+   "fieldname": "quality_position",
+   "fieldtype": "Small Text",
+   "label": "Quality"
+  },
+  {
+   "fieldname": "finance_position",
+   "fieldtype": "Small Text",
+   "label": "Finance"
+  },
+  {
+   "fieldname": "sec_cost",
+   "fieldtype": "Section Break",
+   "label": "Cost of Each Option"
+  },
+  {
+   "fieldname": "cost_of_delay_per_day",
+   "fieldtype": "Currency",
+   "label": "Cost of Delay per Day",
+   "description": "Contract LD / penalty per day + customer goodwill estimate."
+  },
+  {
+   "fieldname": "delay_days",
+   "fieldtype": "Int",
+   "label": "Days of Delay if Waiting"
+  },
+  {
+   "fieldname": "cost_of_delay",
+   "fieldtype": "Currency",
+   "label": "Cost of Delay",
+   "read_only": 1
+  },
+  {
+   "fieldname": "col2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cost_of_quality",
+   "fieldtype": "Currency",
+   "label": "Cost of Quality (rework + risk)",
+   "description": "Rework cost now + expected warranty / field-failure cost of shipping a defect."
+  },
+  {
+   "fieldname": "expedite_cost",
+   "fieldtype": "Currency",
+   "label": "Expedite / Overtime Cost"
+  },
+  {
+   "fieldname": "sec_dec",
+   "fieldtype": "Section Break",
+   "label": "Decision"
+  },
+  {
+   "fieldname": "decision",
+   "fieldtype": "Select",
+   "label": "Decision",
+   "options": "\nShip Partial + Rework Balance\nDelay Delivery\nInvoice Now, Ship Later\nShip with Customer-Approved Concession\nOvertime Rework, Ship on Time",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "decision_rationale",
+   "fieldtype": "Small Text",
+   "label": "Rationale"
+  },
+  {
+   "fieldname": "ship_now_qty",
+   "fieldtype": "Float",
+   "label": "Qty to Ship Now"
+  },
+  {
+   "fieldname": "new_delivery_date",
+   "fieldtype": "Date",
+   "label": "New Date for Balance"
+  },
+  {
+   "fieldname": "customer_agreed",
+   "fieldtype": "Check",
+   "label": "Customer Agreed (in writing)"
+  },
+  {
+   "fieldname": "col3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sales_ack",
+   "fieldtype": "Link",
+   "label": "Sales Director",
+   "options": "User",
+   "read_only": 1,
+   "allow_on_submit": 1
+  },
+  {
+   "fieldname": "operations_ack",
+   "fieldtype": "Link",
+   "label": "Operations Head",
+   "options": "User",
+   "read_only": 1,
+   "allow_on_submit": 1
+  },
+  {
+   "fieldname": "quality_ack",
+   "fieldtype": "Link",
+   "label": "Quality",
+   "options": "User",
+   "read_only": 1,
+   "allow_on_submit": 1
+  },
+  {
+   "fieldname": "finance_ack",
+   "fieldtype": "Link",
+   "label": "Finance Director",
+   "options": "User",
+   "read_only": 1,
+   "allow_on_submit": 1
+  },
+  {
+   "fieldname": "lessons",
+   "fieldtype": "Small Text",
+   "label": "Lessons Learned",
+   "allow_on_submit": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "options": "Quality Deadline Decision",
+   "read_only": 1,
+   "no_copy": 1,
+   "print_hide": 1,
+   "search_index": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-11-19 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Horizon ERP",
+ "name": "Quality Deadline Decision",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "create": 1,
+   "write": 1,
+   "delete": 1,
+   "submit": 1,
+   "cancel": 1,
+   "amend": 1
+  },
+  {
+   "role": "HML Operations Head",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "create": 1,
+   "write": 1,
+   "delete": 1,
+   "submit": 1,
+   "cancel": 1,
+   "amend": 1
+  },
+  {
+   "role": "HML Sales Director",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "create": 1,
+   "write": 1,
+   "delete": 1,
+   "submit": 1
+  },
+  {
+   "role": "Quality Manager",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "create": 1,
+   "write": 1
+  },
+  {
+   "role": "HML Finance Director",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "create": 1,
+   "write": 1,
+   "delete": 1,
+   "submit": 1
+  },
+  {
+   "role": "Sales Manager",
+   "read": 1,
+   "report": 1,
+   "print": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "autoname": "format:QDD-{YYYY}-{#####}",
+ "naming_rule": "Expression",
+ "is_submittable": 1,
+ "title_field": "title",
+ "description": "Raised when a delivery date collides with quality readiness. Forces an explicit, approved business decision and records its cost."
+}

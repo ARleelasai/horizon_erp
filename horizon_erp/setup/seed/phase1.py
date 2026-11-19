@@ -794,6 +794,8 @@ USERS = {
 	"amit.kapoor": ("Amit", "Kapoor", [ROLE_SALES_DIR, "Sales Manager", "Sales User", "Sales Master Manager"], None),
 	"neha.joshi": ("Neha", "Joshi", [ROLE_HR, "HR Manager", "HR User", "Leave Approver", "Projects Manager"], None),
 	"pooja.shah": ("Pooja", "Shah", ["Purchase User", "Stock User"], None),
+	"sunita.pawar": ("Sunita", "Pawar", ["Accounts User"], None),
+	"delhi.dc.api": ("Delhi DC", "Integration", ["Stock User"], "delhi"),
 	"vikram.rao": ("Vikram", "Rao", [ROLE_PROC, "Purchase Manager", "Purchase User", "Purchase Master Manager"], None),
 	"suresh.patil": ("Suresh", "Patil", [ROLE_DEPT_HEAD, "Purchase User", "Manufacturing User", "Stock User", "Leave Approver"], None),
 	"anil.deshmukh": ("Anil", "Deshmukh", [ROLE_WH_MGR, "Stock User", "Delivery User"], "mumbai"),

@@ -400,6 +400,34 @@ ASSET_FIELDS = [
 ]
 
 
+BANK_ACCOUNT_FIELDS = [
+	{"fieldname": "hml_reconciliation_frequency", "label": "Reconciliation Frequency", "fieldtype": "Select", "options": "\nDaily\nWeekly\nMonthly",
+		"default": "Monthly", "insert_after": "account"},
+	{"fieldname": "hml_reconciled_upto", "label": "Reconciled and Locked Up To", "fieldtype": "Date", "read_only": 1, "insert_after": "hml_reconciliation_frequency"},
+	{"fieldname": "hml_statement_opening", "label": "Statement Opening Balance", "fieldtype": "Currency", "insert_after": "hml_reconciled_upto",
+		"description": "Bank balance before the first imported statement line (agreed to the GL at go-live)."},
+]
+
+BANK_TRANSACTION_FIELDS = [
+	{"fieldname": "hml_exception_section", "label": "Reconciliation Exception", "fieldtype": "Section Break", "insert_after": "unallocated_amount"},
+	{"fieldname": "hml_exception_type", "label": "Exception Type", "fieldtype": "Select", "allow_on_submit": 1, "insert_after": "hml_exception_section",
+		"options": "\nPost-dated Cheque\nCheque in Clearing\nTiming Difference\nBank Charge to Book\nInterest to Book\nUnidentified Receipt\nDisputed",
+		"in_standard_filter": 1},
+	{"fieldname": "hml_exception_note", "label": "Exception Note", "fieldtype": "Small Text", "allow_on_submit": 1, "insert_after": "hml_exception_type"},
+	{"fieldname": "hml_auto_matched", "label": "Auto-matched By", "fieldtype": "Data", "read_only": 1, "allow_on_submit": 1, "insert_after": "hml_exception_note"},
+]
+
+COST_CENTER_FIELDS = [
+	{"fieldname": "hml_owner", "label": "Budget Owner", "fieldtype": "Link", "options": "User", "insert_after": "company",
+		"description": "Receives the monthly budget performance mail and the 90 % alert."},
+]
+
+COMPANY_FIELDS = [
+	{"fieldname": "hml_invoice_terms", "label": "Invoice Terms and Conditions", "fieldtype": "Text Editor", "insert_after": "default_operating_cost_account",
+		"description": "Printed on Horizon tax invoices."},
+]
+
+
 def get_custom_fields():
 	return {
 		"Item": ITEM_FIELDS,
@@ -428,4 +456,8 @@ def get_custom_fields():
 		"Salary Slip": SALARY_SLIP_FIELDS,
 		"Sales Invoice": SALES_INVOICE_FIELDS,
 		"Asset": ASSET_FIELDS,
+		"Bank Account": BANK_ACCOUNT_FIELDS,
+		"Bank Transaction": BANK_TRANSACTION_FIELDS,
+		"Cost Center": COST_CENTER_FIELDS,
+		"Company": COMPANY_FIELDS,
 	}
