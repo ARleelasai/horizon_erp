@@ -57,6 +57,7 @@ from horizon_erp.setup.seed.guards import original_tax_setup
 from horizon_erp.setup.seed.utils import ensure_value, get_or_insert, gstin, log, set_posting
 
 OPENING_DATE = "2026-04-01"
+AUTO_TAX_CATEGORY = "GST by Place of Supply"
 TEST_PASSWORD = "Horizon@2026"
 EMAIL_DOMAIN = "horizonmfg.test"
 
@@ -229,10 +230,12 @@ ACCOUNTS = [
 	("Professional Tax Payable", "Duties and Taxes", "Tax"),
 	("TDS on Salary Payable", "Duties and Taxes", "Tax"),
 	("HDFC Bank - Current Account", "Bank Accounts", "Bank"),
+	("Unrealised Profit on Branch Transfer", "Current Liabilities", ""),
 ]
 
 
 def step_accounts():
+	"""Extra heads; see design doc section 2 for the account map."""
 	for name, parent, account_type in ACCOUNTS:
 		get_or_insert(
 			"Account",
@@ -245,6 +248,9 @@ def step_accounts():
 				"account_type": account_type,
 			},
 		)
+	# Branch transfers are priced at cost, so this stays at zero; ERPNext still
+	# requires the account for internal (same-company) invoices.
+	ensure_value("Company", COMPANY, {"unrealized_profit_loss_account": acc("Unrealised Profit on Branch Transfer")})
 
 
 # --------------------------------------------------------------- warehouses
@@ -310,6 +316,11 @@ def step_warehouses():
 
 
 def step_groups():
+	# Customer.tax_category is mandatory on this site. A category with no tax
+	# templates lets India Compliance pick CGST+SGST or IGST from place of
+	# supply vs the selling GSTIN (Mumbai or Delhi), instead of pinning one.
+	get_or_insert("Tax Category", AUTO_TAX_CATEGORY, {"title": AUTO_TAX_CATEGORY})
+
 	for name, parent in [
 		(IG_EQUIPMENT, "All Item Groups"),
 		(IG_SPARES, "All Item Groups"),
@@ -330,8 +341,22 @@ def step_groups():
 	for group, rate in group_tax.items():
 		doc = frappe.get_doc("Item Group", group)
 		template = f"GST {rate}% - {ABBR}"
-		if not [t for t in doc.get("taxes") if t.item_tax_template == template]:
-			doc.append("taxes", {"item_tax_template": template})
+		# ERPNext matches item tax rows on the document's tax category; India
+		# Compliance sets that to In-State / Out-State, so one row per category
+		# (the template itself carries both CGST+SGST and IGST lines).
+		changed = False
+		for category in (
+			"",
+			AUTO_TAX_CATEGORY,
+			"In-State",
+			"Out-State",
+			"Reverse Charge In-State",
+			"Reverse Charge Out-State",
+		):
+			if not [t for t in doc.get("taxes") if t.item_tax_template == template and (t.tax_category or "") == category]:
+				doc.append("taxes", {"item_tax_template": template, "tax_category": category or None})
+				changed = True
+		if changed:
 			doc.save(ignore_permissions=True)
 			log(f"~ Item Group {group}: {template}")
 
@@ -478,7 +503,7 @@ def step_customers():
 					"gstin": gst_no or "",
 					"pan": pan or "",
 					"gst_category": "Registered Regular" if gst_no else "Unregistered",
-					"tax_category": "In-State" if state == "Maharashtra" else "Out-State",
+					"tax_category": AUTO_TAX_CATEGORY,
 					"default_price_list": "HML North Region Selling"
 					if state == "Delhi"
 					else "HML Standard Selling",
@@ -490,6 +515,8 @@ def step_customers():
 			doc.insert(ignore_permissions=True)
 			existing = doc.name
 			log(f"+ Customer: {existing} {name}")
+		elif frappe.db.get_value("Customer", existing, "tax_category") != AUTO_TAX_CATEGORY:
+			frappe.db.set_value("Customer", existing, "tax_category", AUTO_TAX_CATEGORY)
 		_make_party_address("Customer", existing, name, state, city, pincode, gst_no)
 		first = name.split()[0]
 		_make_contact("Customer", existing, first, "Purchase", f"purchase@{key}.example.com", "+91 98200 1" + str(zlib.crc32(key.encode()) % 10000).zfill(4))
@@ -559,7 +586,7 @@ def step_internal_parties():
 				"companies": [{"company": COMPANY}],
 				"gstin": GSTIN_DELHI,
 				"gst_category": "Registered Regular",
-				"tax_category": "Out-State",
+				"tax_category": AUTO_TAX_CATEGORY,
 				"custom_customer": [{"company": COMPANY}],
 			}
 		)

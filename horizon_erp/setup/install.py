@@ -14,6 +14,9 @@ def after_migrate():
 	make_roles()
 	make_custom_fields()
 	make_location_dimension()
+	from horizon_erp.setup.workflows import make_all
+
+	make_all()
 
 
 def make_roles():
