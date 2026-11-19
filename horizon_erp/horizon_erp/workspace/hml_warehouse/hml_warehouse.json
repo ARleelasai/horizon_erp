@@ -1,7 +1,7 @@
 {
  "charts": [],
  "content": "[{\"id\": \"hHML\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>HML Warehouse</b></span>\", \"col\": 12}}, {\"id\": \"nc0\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HML Deliveries Today\", \"col\": 4}}, {\"id\": \"nc1\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HML Open Pick Lists\", \"col\": 4}}, {\"id\": \"nc2\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HML Orders To Deliver\", \"col\": 4}}, {\"id\": \"hs\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h5\\\">Shortcuts</span>\", \"col\": 12}}, {\"id\": \"sc0\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Pick List\", \"col\": 3}}, {\"id\": \"sc1\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Delivery Note\", \"col\": 3}}, {\"id\": \"sc2\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Stock Entry\", \"col\": 3}}, {\"id\": \"sc3\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Order Fulfilment Status\", \"col\": 3}}, {\"id\": \"sc4\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Consolidated Inventory\", \"col\": 3}}, {\"id\": \"ql0\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Packing queue (open pick lists)\", \"col\": 4}}, {\"id\": \"ql1\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Orders by promised date\", \"col\": 4}}, {\"id\": \"ql2\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Today's deliveries\", \"col\": 4}}, {\"id\": \"hr\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h5\\\">Reports and Records</span>\", \"col\": 12}}, {\"id\": \"lc0\", \"type\": \"card\", \"data\": {\"card_name\": \"Warehouse Reports\", \"col\": 4}}]",
- "creation": "2026-11-19 13:18:52.630319",
+ "creation": "2026-11-19 14:24:35.450975",
  "custom_blocks": [],
  "docstatus": 0,
  "doctype": "Workspace",
@@ -52,7 +52,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-11-19 13:24:50.909707",
+ "modified": "2026-11-19 14:24:52.091973",
  "modified_by": "Administrator",
  "module": "Horizon ERP",
  "name": "HML Warehouse",

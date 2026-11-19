@@ -6,7 +6,7 @@
   }
  ],
  "content": "[{\"id\": \"hHor\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Horizon ERP</b></span>\", \"col\": 12}}, {\"id\": \"nc0\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HML Open Quotation Value\", \"col\": 4}}, {\"id\": \"nc1\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HML Orders To Deliver\", \"col\": 4}}, {\"id\": \"nc2\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HML POs Awaiting Approval\", \"col\": 4}}, {\"id\": \"nc3\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HML Quality-Deadline Decisions Open\", \"col\": 4}}, {\"id\": \"nc4\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HML Stock Value\", \"col\": 4}}, {\"id\": \"nc5\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HML Receivables\", \"col\": 4}}, {\"id\": \"ch0\", \"type\": \"chart\", \"data\": {\"chart_name\": \"HML Sales Order Value by Month\", \"col\": 12}}, {\"id\": \"hs\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h5\\\">Shortcuts</span>\", \"col\": 12}}, {\"id\": \"sc0\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Quotation\", \"col\": 3}}, {\"id\": \"sc1\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Sales Order\", \"col\": 3}}, {\"id\": \"sc2\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Purchase Order\", \"col\": 3}}, {\"id\": \"sc3\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Work Order\", \"col\": 3}}, {\"id\": \"sc4\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Production Audit\", \"col\": 3}}, {\"id\": \"sc5\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Quality Deadline Decision\", \"col\": 3}}, {\"id\": \"hr\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h5\\\">Reports and Records</span>\", \"col\": 12}}, {\"id\": \"lc0\", \"type\": \"card\", \"data\": {\"card_name\": \"Setup and Inventory\", \"col\": 4}}, {\"id\": \"lc1\", \"type\": \"card\", \"data\": {\"card_name\": \"Selling\", \"col\": 4}}, {\"id\": \"lc2\", \"type\": \"card\", \"data\": {\"card_name\": \"Buying and Planning\", \"col\": 4}}, {\"id\": \"lc3\", \"type\": \"card\", \"data\": {\"card_name\": \"Manufacturing\", \"col\": 4}}, {\"id\": \"lc4\", \"type\": \"card\", \"data\": {\"card_name\": \"Quality\", \"col\": 4}}, {\"id\": \"lc5\", \"type\": \"card\", \"data\": {\"card_name\": \"Projects, Assets, HR\", \"col\": 4}}, {\"id\": \"lc6\", \"type\": \"card\", \"data\": {\"card_name\": \"Finance and Tax\", \"col\": 4}}, {\"id\": \"lc7\", \"type\": \"card\", \"data\": {\"card_name\": \"Strategy and BI\", \"col\": 4}}, {\"id\": \"lc8\", \"type\": \"card\", \"data\": {\"card_name\": \"Horizon Records\", \"col\": 4}}]",
- "creation": "2026-11-19 13:18:52.474473",
+ "creation": "2026-11-19 14:24:35.503299",
  "custom_blocks": [],
  "docstatus": 0,
  "doctype": "Workspace",
@@ -609,7 +609,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-11-19 13:24:50.767468",
+ "modified": "2026-11-19 14:24:51.865156",
  "modified_by": "Administrator",
  "module": "Horizon ERP",
  "name": "Horizon ERP",
