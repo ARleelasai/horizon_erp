@@ -585,7 +585,7 @@ def step_quality_records():
 
 
 def step_capacity_conflict():
-	"""Sales promises 2 presses by Friday 21 Nov while Line A is busy."""
+	"""Sales promises 2 presses by Friday 20 Nov while Line A is busy."""
 	if frappe.db.exists("Sales Order", {"po_no": "APX/PO/2026/0533"}):
 		return
 	from erpnext.selling.doctype.quotation.quotation import _make_sales_order
@@ -593,14 +593,14 @@ def step_capacity_conflict():
 
 	frappe.set_user(SALES_EXEC)
 	so = _make_sales_order(quote_name("Q9"), ignore_permissions=True)
-	so.update({"transaction_date": "2026-11-18", "delivery_date": "2026-11-21", "po_no": "APX/PO/2026/0533", "po_date": "2026-11-18",
+	so.update({"transaction_date": "2026-11-18", "delivery_date": "2026-11-20", "po_no": "APX/PO/2026/0533", "po_date": "2026-11-18",
 		"company_address": ADDRESS_MUMBAI, "set_warehouse": WH_FG, "payment_schedule": []})
 	for row in so.items:
-		row.delivery_date = "2026-11-21"
+		row.delivery_date = "2026-11-20"
 	so.insert()
 	so.submit()
 	admin()
-	log(f"+ Sales Order {so.name}: 2 x HX-500 promised for Fri 21 Nov (risk flag {so.hml_delivery_risk})")
+	log(f"+ Sales Order {so.name}: 2 x HX-500 promised for Fri 20 Nov (risk flag {so.hml_delivery_risk})")
 	wo = frappe.get_doc(
 		{
 			"doctype": "Work Order",
@@ -625,7 +625,7 @@ def step_capacity_conflict():
 		log(f"  capacity check blocked the WO as designed: {frappe.utils.strip_html(str(e))[:160]}...")
 		wo.hml_capacity_decision = "Ship Partial"
 		wo.hml_capacity_decision_note = (
-			"Line A can finish 1 press by Wed 19 Nov for Friday dispatch; the second by 28 Nov. "
+			"Line A can finish 1 press by Thu 19 Nov for Friday dispatch; the second by 28 Nov. "
 			"Amit agreed the split with Apex on 18 Nov; balance invoiced on delivery."
 		)
 		frappe.set_user(OPS_HEAD)

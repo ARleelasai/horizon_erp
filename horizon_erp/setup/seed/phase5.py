@@ -140,7 +140,8 @@ def step_leave_setup():
 	for name, days, carry, max_cf, expiry, extra in [
 		("HML Casual Leave", 12, 0, 0, 0, {"max_continuous_days_allowed": 3}),
 		("HML Sick Leave", 8, 0, 0, 0, {}),
-		("HML Earned Leave", 21, 1, 10, 365, {"applicable_after": 0}),
+		# no "max leaves allowed" cap on EL: HRMS would trim the carried-forward 10 to fit 21
+		("HML Earned Leave", 0, 1, 10, 365, {"applicable_after": 0}),
 	]:
 		get_or_insert(
 			"Leave Type",
@@ -345,6 +346,30 @@ def step_leave_allocation():
 		lpa.insert(ignore_permissions=True)
 		lpa.submit()
 	log(f"+ Leave policy assigned to {len(staff)} employees (3 with carry forward)")
+	_apply_carry_forward(history)
+
+
+def _apply_carry_forward(employees):
+	"""Re-allocate EL with carry forward (capped at 10 by the leave type) for
+	allocations booked before the leave type cap was removed."""
+	for key in employees:
+		e = emp(key)
+		name = frappe.db.get_value(
+			"Leave Allocation", {"employee": e, "leave_type": "HML Earned Leave", "from_date": FY_START, "docstatus": 1},
+			["name", "unused_leaves"], as_dict=True,
+		)
+		if not name or flt(name.unused_leaves) > 0:
+			continue
+		old = frappe.get_doc("Leave Allocation", name.name)
+		old.flags.ignore_links = True
+		old.cancel()
+		new = frappe.copy_doc(old)
+		new.amended_from = None
+		new.carry_forward = 1
+		new.leave_policy_assignment = old.leave_policy_assignment
+		new.insert(ignore_permissions=True)
+		new.submit()
+		log(f"  {key}: Earned Leave carried forward {new.unused_leaves}, total {new.total_leaves_allocated}")
 
 
 # --------------------------------------------------------------- attendance
