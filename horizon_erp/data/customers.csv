@@ -1,0 +1,10 @@
+customer_name,customer_group,territory,gst_category,gstin,pan,tax_category,default_price_list,payment_terms,address_line1,city,state,pincode,credit_limit
+Apex Infra Projects Pvt Ltd,Premium,Maharashtra,Registered Regular,27AAFCA4521K1ZQ,AAFCA4521K,GST by Place of Supply,HML Standard Selling,HML Net 30,Apex Infra Projects Pvt Ltd Office,Pune,Maharashtra,411018,2500000.0
+Northern Engineering Works,Premium,Delhi NCR,Registered Regular,07AACFN7788L1ZJ,AACFN7788L,GST by Place of Supply,HML North Region Selling,HML Net 30,Northern Engineering Works Office,New Delhi,Delhi,110020,2500000.0
+Deccan Fabricators,Standard,Karnataka,Registered Regular,29AAFCD3344M1ZC,AAFCD3344M,GST by Place of Supply,HML Standard Selling,HML Net 30,Deccan Fabricators Office,Bengaluru,Karnataka,560058,1000000.0
+Sahyadri Agro Industries,Standard,Maharashtra,Registered Regular,27AAKCS9087P1Z6,AAKCS9087P,GST by Place of Supply,HML Standard Selling,HML Net 30,Sahyadri Agro Industries Office,Nashik,Maharashtra,422007,1000000.0
+Capital Machinery Traders,Standard,Delhi NCR,Registered Regular,07AAJFC5566Q1ZP,AAJFC5566Q,GST by Place of Supply,HML North Region Selling,HML Net 30,Capital Machinery Traders Office,New Delhi,Delhi,110015,1000000.0
+ABC Corp,Standard,Maharashtra,Registered Regular,27AABCA1122R1ZP,AABCA1122R,GST by Place of Supply,HML Standard Selling,HML Net 30,ABC Corp Office,Thane,Maharashtra,400604,1000000.0
+Gujarat Pump Works,Premium,Gujarat,Registered Regular,24AAGCG7700S1Z6,AAGCG7700S,GST by Place of Supply,HML Standard Selling,HML Net 30,Gujarat Pump Works Office,Ahmedabad,Gujarat,382445,2500000.0
+Konkan Steel Structures,Standard,Maharashtra,Unregistered,,,GST by Place of Supply,HML Standard Selling,,Konkan Steel Structures Office,Ratnagiri,Maharashtra,415612,1000000.0
+Om Scrap Traders,Standard,Maharashtra,Unregistered,,,GST by Place of Supply,,,"Shed 7, Kurla",Mumbai,Maharashtra,400070,

@@ -1,0 +1,9 @@
+supplier_name,supplier_group,gst_category,gstin,pan,hml_is_blacklisted,hml_blacklist_reason,city,state,pincode
+Bharat Steel Suppliers,Raw Material,Registered Regular,27AABCB2345C1Z8,AABCB2345C,0,,Mumbai,Maharashtra,400072
+Precision Bearings Co,Hardware,Registered Regular,24AAECP6789D1Z7,AAECP6789D,0,,Rajkot,Gujarat,360004
+Delhi Electricals & Drives,Electrical,Registered Regular,07AAFCD1357E1ZY,AAFCD1357E,0,,New Delhi,Delhi,110028
+ABC Supplies,Hardware,Registered Regular,27AABCA9753F1ZL,AABCA9753F,1,"Q1 FY26-27: 3 consecutive lots of hydraulic seals failed pressure test (NCR-2026-014/017/021). Sole source for HX-500 custom manifold block, so exceptions are allowed with Finance Director approval.",Bhiwandi,Maharashtra,421302
+ABC Corp,Hardware,Registered Regular,27AABCA1122R1ZP,AABCA1122R,0,,Thane,Maharashtra,400604
+Shree Fasteners,Hardware,Unregistered,,,0,,Vasai,Maharashtra,401208
+Rapid Paints & Coatings,Raw Material,Registered Regular,27AAFCR2468G1Z8,AAFCR2468G,0,,Navi Mumbai,Maharashtra,400705
+Hydro-Tech Components,Hydraulics,Registered Regular,29AAGCH8642H1Z7,AAGCH8642H,0,,Bengaluru,Karnataka,560099

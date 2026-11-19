@@ -1,0 +1,37 @@
+item_code,item_name,item_group,stock_uom,gst_hsn_code,is_stock_item,is_sales_item,is_purchase_item,has_serial_no,serial_no_series,has_batch_no,lead_time_days,hml_mfg_lead_time_days,hml_machine_hours_per_unit,hml_eligible_lines,hml_criticality,hml_demand_pattern,hml_abc_class,hml_make_to_stock,valuation_rate,default_warehouse,selling_rate,buying_rate
+CMP-BRG-6205,Ball Bearing 6205-2RS,Components,Nos,84821020,1,1,1,0,,0,2,0,0.0,Any,C - Standard,Stable,C,0,180.0,Mumbai - Raw Materials - HML,260.0,180.0
+CMP-CYL-100,Hydraulic Cylinder 100 mm Bore,Components,Nos,84122100,1,1,1,0,,0,28,0,0.0,Any,A - Critical,Stable,A,0,18000.0,Mumbai - Raw Materials - HML,24500.0,18000.0
+CMP-GEARBOX-30,Worm Gearbox 30:1,Components,Nos,84834000,1,1,1,0,,0,21,0,0.0,Any,B - Important,Stable,B,0,9800.0,Mumbai - Raw Materials - HML,13200.0,9800.0
+CMP-MANIFOLD-HX,HX-500 Custom Manifold Block,Components,Nos,84129090,1,0,1,0,,0,21,0,0.0,Any,A - Critical,Stable,A,0,8600.0,Mumbai - Raw Materials - HML,,8600.0
+CMP-MOTOR-2HP,Electric Motor 2 HP 3-Phase,Components,Nos,85015210,1,1,1,0,,0,14,0,0.0,Any,B - Important,Stable,B,0,7500.0,Mumbai - Raw Materials - HML,10200.0,7500.0
+CMP-MOTOR-5HP,Electric Motor 5 HP 3-Phase,Components,Nos,85015210,1,1,1,0,,0,14,0,0.0,Any,B - Important,Stable,B,0,14000.0,Mumbai - Raw Materials - HML,18900.0,14000.0
+CMP-PLC-24,PLC Controller 24 I/O,Components,Nos,85371000,1,1,1,0,,0,28,0,0.0,Any,A - Critical,Stable,A,0,22000.0,Mumbai - Raw Materials - HML,29500.0,22000.0
+CMP-PUMP-GP20,Gear Pump 20 LPM,Components,Nos,84136010,1,1,1,0,,0,21,0,0.0,Any,A - Critical,Stable,A,0,12500.0,Mumbai - Raw Materials - HML,16800.0,12500.0
+CMP-ROLLER-50,Conveyor Roller 50 mm x 600 mm,Components,Nos,84829900,1,1,1,0,,0,7,0,0.0,Any,C - Standard,Stable,B,0,450.0,Mumbai - Raw Materials - HML,640.0,450.0
+CX-200,CX-200 Belt Conveyor Unit (6 m),Equipment,Nos,84283300,1,1,0,1,CX2-.#####,0,0,7,3.0,Any,B - Important,Stable,A,1,0.0,Mumbai - Finished Goods - HML,185000.0,
+HX-500,HX-500 Hydraulic Press (50 T),Equipment,Nos,84622910,1,1,0,1,HX5-.#####,0,0,12,6.0,Line A,A - Critical,Stable,A,0,0.0,Mumbai - Finished Goods - HML,450000.0,
+AST-EXISTING-PLANT,Existing plant and machinery,HML Fixed Assets,Nos,84622910,0,1,1,0,,0,0,0,0.0,Any,C - Standard,Stable,C,0,0.0,Mumbai - Raw Materials - HML,,
+AST-FORKLIFT,Diesel Forklift 3 T,HML Fixed Assets,Nos,84622910,0,1,1,0,,0,0,0,0.0,Any,C - Standard,Stable,C,0,0.0,Mumbai - Raw Materials - HML,,
+AST-LAPTOP,Engineering Laptop (CAD),HML Fixed Assets,Nos,84622910,0,1,1,0,,0,0,0,0.0,Any,C - Standard,Stable,C,0,0.0,Mumbai - Raw Materials - HML,,
+AST-PRESS-BRAKE,CNC Press Brake 160 T,HML Fixed Assets,Nos,84622910,0,1,1,0,,0,0,0,0.0,Any,C - Standard,Stable,C,0,0.0,Mumbai - Raw Materials - HML,,
+AST-WELD-ROBOT,Robotic MIG Welding Cell,HML Fixed Assets,Nos,84622910,0,1,1,0,,0,0,0,0.0,Any,C - Standard,Stable,C,0,0.0,Mumbai - Raw Materials - HML,,
+RM-BELT-PVC-600,PVC Conveyor Belt 600 mm,HML Raw Materials,Meter,59100090,1,0,1,0,,0,14,0,0.0,Any,B - Important,Stable,B,0,1250.0,Mumbai - Raw Materials - HML,,1250.0
+RM-BOLT-M12,Hex Bolt M12 x 50 with Nut,HML Raw Materials,Nos,73181500,1,0,1,0,,0,2,0,0.0,Any,C - Standard,Stable,C,0,12.0,Mumbai - Raw Materials - HML,,12.0
+RM-HYD-OIL-68,Hydraulic Oil ISO VG 68,HML Raw Materials,Litre,27101980,1,0,1,0,,1,5,0,0.0,Any,B - Important,Stable,B,0,160.0,Mumbai - Raw Materials - HML,,160.0
+RM-MS-CHANNEL-100,MS Channel 100x50,HML Raw Materials,Kg,72163100,1,0,1,0,,0,28,0,0.0,Any,B - Important,Stable,A,0,68.0,Mumbai - Raw Materials - HML,,68.0
+RM-MS-PLATE-10,MS Plate 10 mm IS2062,HML Raw Materials,Kg,72085190,1,0,1,0,,0,28,0,0.0,Any,A - Critical,Stable,A,0,72.0,Mumbai - Raw Materials - HML,,72.0
+RM-PAINT-EPOXY,Epoxy Paint - RAL 5015 Blue,HML Raw Materials,Litre,32089090,1,0,1,0,,0,5,0,0.0,Any,C - Standard,Stable,B,0,420.0,Mumbai - Raw Materials - HML,,420.0
+RM-WELD-E7018,Welding Electrode E7018 3.15 mm,HML Raw Materials,Kg,83112000,1,0,1,0,,0,2,0,0.0,Any,C - Standard,Stable,C,0,210.0,Mumbai - Raw Materials - HML,,210.0
+SA-CX-DRIVE,CX-200 Drive Assembly,HML Sub-Assemblies,Nos,84834000,1,0,0,0,,0,0,2,1.0,Any,C - Standard,Stable,C,0,0.0,Mumbai - Raw Materials - HML,,
+SA-CX-FRAME,CX-200 Conveyor Frame,HML Sub-Assemblies,Nos,84289090,1,0,0,0,,0,0,3,1.5,Any,C - Standard,Stable,C,0,0.0,Mumbai - Raw Materials - HML,,
+SA-HX-CTRL,HX-500 Control Panel,HML Sub-Assemblies,Nos,85371000,1,0,0,0,,0,0,2,1.0,Any,C - Standard,Stable,C,0,0.0,Mumbai - Raw Materials - HML,,
+SA-HX-FRAME,HX-500 Welded Main Frame,HML Sub-Assemblies,Nos,84669400,1,0,0,0,,0,0,4,2.5,Line A,C - Standard,Stable,C,0,0.0,Mumbai - Raw Materials - HML,,
+SA-HX-HPU,HX-500 Hydraulic Power Unit,HML Sub-Assemblies,Nos,84122100,1,0,0,0,,0,0,3,1.5,Any,C - Standard,Stable,C,0,0.0,Mumbai - Raw Materials - HML,,
+PRJ-TEST-RIG,Custom Hydraulic Test Rig (engineered project),Services,Lump Sum,998719,0,1,0,0,,0,0,0,0.0,Any,C - Standard,Stable,C,0,0.0,Mumbai - Raw Materials - HML,1800000.0,
+SRV-MACHINING,Job work - machining of flanges,Services,Nos,998898,0,0,1,0,,0,0,0,0.0,Any,C - Standard,Stable,C,0,0.0,Mumbai - Finished Goods - HML,,
+SP-BELT-600-10M,Replacement Belt 600 mm x 10 m,Spares,Nos,59100090,1,1,1,0,,0,14,0,0.0,Any,B - Important,Seasonal - Q4 Spike,B,0,11000.0,Mumbai - Finished Goods - HML,16500.0,11000.0
+SP-FILTER-RET,Hydraulic Return Line Filter,Spares,Nos,84212300,1,1,1,0,,0,7,0,0.0,Any,C - Standard,Seasonal - Q4 Spike,C,0,850.0,Mumbai - Finished Goods - HML,1400.0,850.0
+SP-GASKET-HX300,HX-300 Cylinder Gasket (discontinued model),Spares,Nos,40169320,1,1,0,0,,0,0,0,0.0,Any,C - Standard,Stable,C,0,85.0,Mumbai - Finished Goods - HML,,
+SP-HOSE-KIT,Hydraulic Hose Kit (4 hoses),Spares,Set,40093100,1,1,1,0,,0,10,0,0.0,Any,C - Standard,Seasonal - Q4 Spike,C,0,3100.0,Mumbai - Finished Goods - HML,4800.0,3100.0
+SP-ROLLER-SET10,Conveyor Roller Set (10 pcs),Spares,Set,84829900,1,1,1,0,,0,7,0,0.0,Any,C - Standard,Seasonal - Q4 Spike,C,0,4300.0,Mumbai - Finished Goods - HML,6500.0,4300.0
+SP-SEAL-KIT-HX,HX-500 Cylinder Seal Kit,Spares,Set,40169320,1,1,1,0,,0,21,0,0.0,Any,B - Important,Seasonal - Q4 Spike,B,0,2200.0,Mumbai - Finished Goods - HML,3500.0,2200.0

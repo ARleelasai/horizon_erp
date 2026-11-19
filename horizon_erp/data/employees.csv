@@ -1,0 +1,23 @@
+first_name,last_name,gender,date_of_birth,date_of_joining,department,designation,employment_type,hml_employee_category,hml_hourly_rate,ctc,grade,branch,default_shift,user_id
+Rajesh,Menon,Male,1974-03-11,2012-06-01,Accounts - HML,Finance Director,Full-time,Salaried Staff,0.0,4200000.0,G3 Director,HQ Mumbai,HML General Shift,rajesh.menon@horizonmfg.test
+Sunita,Pawar,Female,1995-06-18,2021-11-01,Accounts - HML,Accounts Assistant,Full-time,Salaried Staff,0.0,228000.0,G1 Executive,HQ Mumbai,HML General Shift,
+Kavita,Singh,Female,1990-04-04,2020-08-17,Dispatch - HML,Warehouse Manager,Full-time,Salaried Staff,0.0,660000.0,G2 Manager,DC Delhi,HML General Shift,kavita.singh@horizonmfg.test
+Neha,Joshi,Female,1986-02-17,2016-07-11,Human Resources - HML,HR Manager,Full-time,Salaried Staff,0.0,1800000.0,G2 Manager,HQ Mumbai,HML General Shift,neha.joshi@horizonmfg.test
+Tushar,Bhosale,Male,1990-02-11,2026-04-01,Management - HML,IT Consultant,Contract,Contractual,0.0,960000.0,,HQ Mumbai,HML General Shift,
+Anil,Deshmukh,Male,1988-12-12,2018-02-05,Operations - HML,Stores Manager,Full-time,Salaried Staff,0.0,720000.0,G2 Manager,HQ Mumbai,HML General Shift,anil.deshmukh@horizonmfg.test
+Priya,Nair,Female,1979-08-23,2014-01-15,Operations - HML,Operations Head,Full-time,Salaried Staff,0.0,3600000.0,G3 Director,HQ Mumbai,HML General Shift,priya.nair@horizonmfg.test
+Arjun,Thakur,Male,1998-09-19,2023-06-12,Production - HML,Machine Operator,Full-time,Wage Earner,130.0,324480.0,,HQ Mumbai,HML Afternoon Shift,
+Dinesh,Kamble,Male,1992-01-14,2018-10-01,Production - HML,Painter,Full-time,Wage Earner,125.0,312000.0,,HQ Mumbai,HML Morning Shift,
+Iqbal,Shaikh,Male,1990-08-08,2016-12-05,Production - HML,Welder,Full-time,Wage Earner,155.0,386880.0,,HQ Mumbai,HML Afternoon Shift,
+Mahesh,Gaikwad,Male,1989-02-02,2015-03-16,Production - HML,Welder,Full-time,Wage Earner,160.0,399360.0,,HQ Mumbai,HML Morning Shift,
+Meera,Kulkarni,Female,1989-04-27,2025-10-01,Production - HML,Safety Officer,Contract,Contractual,0.0,660000.0,,HQ Mumbai,HML General Shift,
+Ravi,Yadav,Male,1993-11-30,2019-04-22,Production - HML,Fitter,Full-time,Wage Earner,135.0,336960.0,,HQ Mumbai,HML Afternoon Shift,
+Santosh,Jadhav,Male,1987-05-25,2014-07-07,Production - HML,Fitter,Full-time,Wage Earner,140.0,349440.0,,HQ Mumbai,HML Morning Shift,
+Suresh,Patil,Male,1982-09-09,2013-10-01,Production - HML,Production Manager,Full-time,Salaried Staff,0.0,1400000.0,G2 Manager,HQ Mumbai,HML General Shift,suresh.patil@horizonmfg.test
+Pooja,Shah,Female,1997-03-03,2023-01-09,Purchase - HML,Purchase Executive,Full-time,Salaried Staff,0.0,360000.0,G1 Executive,HQ Mumbai,HML General Shift,pooja.shah@horizonmfg.test
+Vikram,Rao,Male,1984-05-30,2017-03-20,Purchase - HML,Procurement Manager,Full-time,Salaried Staff,0.0,1500000.0,G2 Manager,HQ Mumbai,HML General Shift,vikram.rao@horizonmfg.test
+Ramesh,Iyer,Male,1991-07-21,2019-05-02,Quality Management - HML,QC Inspector,Full-time,Salaried Staff,0.0,540000.0,G1 Executive,HQ Mumbai,HML General Shift,ramesh.iyer@horizonmfg.test
+Farhan,Qureshi,Male,1991-12-01,2025-07-01,Research & Development - HML,CAD Designer,Contract,Contractual,0.0,780000.0,,HQ Mumbai,HML General Shift,
+Amit,Kapoor,Male,1980-11-02,2015-04-01,Sales - HML,Sales Director,Full-time,Salaried Staff,0.0,3400000.0,G3 Director,HQ Mumbai,HML General Shift,amit.kapoor@horizonmfg.test
+Rohan,Mehta,Male,1996-10-15,2022-06-20,Sales - HML,Sales Executive,Full-time,Salaried Staff,0.0,480000.0,G1 Executive,HQ Mumbai,HML General Shift,rohan.mehta@horizonmfg.test
+Sanjay,Verma,Male,1985-01-28,2016-09-12,Sales - HML,Sales Manager,Full-time,Salaried Staff,0.0,1200000.0,G2 Manager,HQ Mumbai,HML General Shift,sanjay.verma@horizonmfg.test

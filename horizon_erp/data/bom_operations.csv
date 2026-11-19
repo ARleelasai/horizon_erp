@@ -1,0 +1,17 @@
+bom,item,idx,operation,workstation,time_in_mins,hml_inspection_template
+BOM-CX-200-001,CX-200,1,HML Assembly,HML Line B,120.0,HML Op - Assembly Inspection
+BOM-CX-200-001,CX-200,2,HML Testing,HML Line B,30.0,HML Op - Final Test
+BOM-HX-500-001,HX-500,1,HML Assembly,HML Line A,180.0,HML Op - Assembly Inspection
+BOM-HX-500-001,HX-500,2,HML Testing,HML Line A,90.0,HML Op - Final Test
+BOM-HX-500-002,HX-500,1,HML Assembly,HML Line A,180.0,HML Op - Assembly Inspection
+BOM-HX-500-002,HX-500,2,HML Testing,HML Line A,90.0,HML Op - Final Test
+BOM-SA-CX-DRIVE-001,SA-CX-DRIVE,1,HML Assembly,HML Line B,60.0,HML Op - Assembly Inspection
+BOM-SA-CX-FRAME-001,SA-CX-FRAME,1,HML Cutting,HML Line B,30.0,
+BOM-SA-CX-FRAME-001,SA-CX-FRAME,2,HML Welding,HML Line B,90.0,HML Op - Weld Inspection
+BOM-SA-CX-FRAME-001,SA-CX-FRAME,3,HML Painting,HML Line B,30.0,HML Op - Paint Inspection
+BOM-SA-HX-CTRL-001,SA-HX-CTRL,1,HML Assembly,HML Line A,60.0,HML Op - Assembly Inspection
+BOM-SA-HX-FRAME-001,SA-HX-FRAME,1,HML Cutting,HML Line B,60.0,
+BOM-SA-HX-FRAME-001,SA-HX-FRAME,2,HML Welding,HML Line A,150.0,HML Op - Weld Inspection
+BOM-SA-HX-FRAME-001,SA-HX-FRAME,3,HML Painting,HML Line A,60.0,HML Op - Paint Inspection
+BOM-SA-HX-HPU-001,SA-HX-HPU,1,HML Assembly,HML Line A,90.0,HML Op - Assembly Inspection
+BOM-SA-HX-HPU-001,SA-HX-HPU,2,HML Testing,HML Line A,30.0,HML Op - Final Test
