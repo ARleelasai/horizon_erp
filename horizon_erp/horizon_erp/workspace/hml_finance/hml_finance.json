@@ -1,0 +1,186 @@
+{
+ "charts": [],
+ "content": "[{\"id\": \"hHML\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>HML Finance</b></span>\", \"col\": 12}}, {\"id\": \"nc0\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HML POs Awaiting Approval\", \"col\": 4}}, {\"id\": \"nc1\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HML PO Value Awaiting Approval\", \"col\": 4}}, {\"id\": \"nc2\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HML Receivables\", \"col\": 4}}, {\"id\": \"hs\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h5\\\">Shortcuts</span>\", \"col\": 12}}, {\"id\": \"sc0\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Purchase Approval Queue\", \"col\": 3}}, {\"id\": \"sc1\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Payment Batch\", \"col\": 3}}, {\"id\": \"sc2\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Budget Overage Approval\", \"col\": 3}}, {\"id\": \"sc3\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Bank Reconciliation Lock\", \"col\": 3}}, {\"id\": \"sc4\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Bank Reconciliation Tool\", \"col\": 3}}, {\"id\": \"hr\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h5\\\">Reports and Records</span>\", \"col\": 12}}, {\"id\": \"lc0\", \"type\": \"card\", \"data\": {\"card_name\": \"Finance Reports\", \"col\": 4}}]",
+ "creation": "2026-11-19 13:18:52.694436",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "hide_custom": 0,
+ "icon": "accounting",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "HML Finance",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Finance Reports",
+   "link_count": 10,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Purchase Approval Queue",
+   "link_count": 0,
+   "link_to": "HML Purchase Approval Queue",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Approval Audit Report",
+   "link_count": 0,
+   "link_to": "HML Approval Audit Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Budget Variance",
+   "link_count": 0,
+   "link_to": "HML Budget Variance",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Budget Performance Analysis",
+   "link_count": 0,
+   "link_to": "HML Budget Performance Analysis",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Bank Reconciliation Statement",
+   "link_count": 0,
+   "link_to": "HML Bank Reconciliation Statement",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Location PnL vs Budget",
+   "link_count": 0,
+   "link_to": "HML Location PnL vs Budget",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Cost Center Wise Profit and Loss",
+   "link_count": 0,
+   "link_to": "Cost Center Wise Profit and Loss",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "GST Summary by Registration",
+   "link_count": 0,
+   "link_to": "HML GST Summary by Registration",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Audit Trail",
+   "link_count": 0,
+   "link_to": "HML Audit Trail",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Net Party Position",
+   "link_count": 0,
+   "link_to": "HML Net Party Position",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-11-19 13:18:52.694436",
+ "modified_by": "Administrator",
+ "module": "Horizon ERP",
+ "name": "HML Finance",
+ "number_cards": [
+  {
+   "label": "POs Awaiting Approval",
+   "number_card_name": "HML POs Awaiting Approval"
+  },
+  {
+   "label": "PO Value Awaiting Approval",
+   "number_card_name": "HML PO Value Awaiting Approval"
+  },
+  {
+   "label": "Receivables",
+   "number_card_name": "HML Receivables"
+  }
+ ],
+ "owner": "Administrator",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 50.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "",
+   "label": "Purchase Approval Queue",
+   "link_to": "HML Purchase Approval Queue",
+   "type": "Report"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Payment Batch",
+   "link_to": "Payment Batch",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Budget Overage Approval",
+   "link_to": "Budget Overage Approval",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Bank Reconciliation Lock",
+   "link_to": "Bank Reconciliation Lock",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Bank Reconciliation Tool",
+   "link_to": "Bank Reconciliation Tool",
+   "type": "DocType"
+  }
+ ],
+ "title": "HML Finance"
+}

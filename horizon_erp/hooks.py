@@ -73,8 +73,7 @@ doc_events = {
 	},
 	"Payment Entry": {"validate": "horizon_erp.accounts.bank.validate_bank_lock"},
 	"Journal Entry": {"validate": "horizon_erp.accounts.bank.validate_bank_lock"},
-	"Customer": {"validate": "horizon_erp.strategy.migration.validate_party_gstin"},
-	"Supplier": {"validate": "horizon_erp.strategy.migration.validate_party_gstin"},
+
 	"Quality Inspection": {
 		"validate": "horizon_erp.overrides.buying.validate_quality_inspection",
 		"before_submit": [

@@ -17,9 +17,9 @@ Clean-up (classify_staging_rows):
 		review    : stock items, or above Rs 50,000 (possible maverick buy)
 
 Preventive (doc events, Horizon only):
-	* Customer / Supplier: the PAN inside the GSTIN must match the party PAN.
-	  India Compliance already checks GSTIN format, check digit, and that the
-	  address state matches the GSTIN state code (address.validate_state).
+	* GSTIN: India Compliance already enforces format, check digit, the
+	  address state vs GSTIN state code (address.validate_state), and derives
+	  the party PAN from the GSTIN - so no Horizon code is needed there.
 	* Purchase Invoice: stock items need a PO or Purchase Receipt.
 	* Stock: negative stock stays disabled (Stock Settings) - documented.
 """
@@ -94,14 +94,6 @@ def classify_staging_rows():
 
 
 # ----------------------------------------------------------- preventive checks
-
-
-def validate_party_gstin(doc, method=None):
-	"""GSTIN on Customer / Supplier must agree with its PAN."""
-	if not doc.get("gstin") or not doc.get("pan"):
-		return
-	if doc.gstin[2:12] != doc.pan.upper():
-		frappe.throw(_("GSTIN {0} does not contain PAN {1}. Check both with the GST certificate.").format(doc.gstin, doc.pan))
 
 
 def validate_purchase_invoice_po(doc, method=None):

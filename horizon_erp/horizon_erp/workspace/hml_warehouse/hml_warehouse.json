@@ -1,0 +1,132 @@
+{
+ "charts": [],
+ "content": "[{\"id\": \"hHML\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>HML Warehouse</b></span>\", \"col\": 12}}, {\"id\": \"nc0\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HML Deliveries Today\", \"col\": 4}}, {\"id\": \"nc1\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HML Open Pick Lists\", \"col\": 4}}, {\"id\": \"nc2\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"HML Orders To Deliver\", \"col\": 4}}, {\"id\": \"hs\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h5\\\">Shortcuts</span>\", \"col\": 12}}, {\"id\": \"sc0\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Pick List\", \"col\": 3}}, {\"id\": \"sc1\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Delivery Note\", \"col\": 3}}, {\"id\": \"sc2\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Stock Entry\", \"col\": 3}}, {\"id\": \"sc3\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Order Fulfilment Status\", \"col\": 3}}, {\"id\": \"sc4\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Consolidated Inventory\", \"col\": 3}}, {\"id\": \"ql0\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Packing queue (open pick lists)\", \"col\": 4}}, {\"id\": \"ql1\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Orders by promised date\", \"col\": 4}}, {\"id\": \"ql2\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Today's deliveries\", \"col\": 4}}, {\"id\": \"hr\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h5\\\">Reports and Records</span>\", \"col\": 12}}, {\"id\": \"lc0\", \"type\": \"card\", \"data\": {\"card_name\": \"Warehouse Reports\", \"col\": 4}}]",
+ "creation": "2026-11-19 13:18:52.630319",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "hide_custom": 0,
+ "icon": "stock",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "HML Warehouse",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Warehouse Reports",
+   "link_count": 3,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Order Fulfilment Status",
+   "link_count": 0,
+   "link_to": "HML Order Fulfilment Status",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Consolidated Inventory",
+   "link_count": 0,
+   "link_to": "HML Consolidated Inventory",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Inventory Health",
+   "link_count": 0,
+   "link_to": "HML Inventory Health",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-11-19 13:18:52.630319",
+ "modified_by": "Administrator",
+ "module": "Horizon ERP",
+ "name": "HML Warehouse",
+ "number_cards": [
+  {
+   "label": "Deliveries Today",
+   "number_card_name": "HML Deliveries Today"
+  },
+  {
+   "label": "Open Pick Lists",
+   "number_card_name": "HML Open Pick Lists"
+  },
+  {
+   "label": "Orders To Deliver",
+   "number_card_name": "HML Orders To Deliver"
+  }
+ ],
+ "owner": "Administrator",
+ "public": 1,
+ "quick_lists": [
+  {
+   "document_type": "Pick List",
+   "label": "Packing queue (open pick lists)",
+   "quick_list_filter": "[[\"Pick List\", \"company\", \"=\", \"Horizon Manufacturing Ltd\"], [\"Pick List\", \"status\", \"in\", [\"Draft\", \"Open\"]]]"
+  },
+  {
+   "document_type": "Sales Order",
+   "label": "Orders by promised date",
+   "quick_list_filter": "[[\"Sales Order\", \"company\", \"=\", \"Horizon Manufacturing Ltd\"], [\"Sales Order\", \"status\", \"in\", [\"To Deliver and Bill\", \"To Deliver\"]]]"
+  },
+  {
+   "document_type": "Delivery Note",
+   "label": "Today's deliveries",
+   "quick_list_filter": "[[\"Delivery Note\", \"company\", \"=\", \"Horizon Manufacturing Ltd\"], [\"Delivery Note\", \"posting_date\", \"Timespan\", \"today\"]]"
+  }
+ ],
+ "roles": [],
+ "sequence_id": 50.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Pick List",
+   "link_to": "Pick List",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Delivery Note",
+   "link_to": "Delivery Note",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Stock Entry",
+   "link_to": "Stock Entry",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "",
+   "label": "Order Fulfilment Status",
+   "link_to": "HML Order Fulfilment Status",
+   "type": "Report"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "",
+   "label": "Consolidated Inventory",
+   "link_to": "HML Consolidated Inventory",
+   "type": "Report"
+  }
+ ],
+ "title": "HML Warehouse"
+}

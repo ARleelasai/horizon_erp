@@ -17,6 +17,9 @@ def after_migrate():
 	from horizon_erp.setup.workflows import make_all
 
 	make_all()
+	from horizon_erp.setup import workspaces
+
+	workspaces.make_all()
 
 
 def make_roles():
